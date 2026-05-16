@@ -2,22 +2,21 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { SectionHeader } from "@/components/SectionHeader";
 import { TeamCard } from "@/components/TeamCard";
+import { TeamRoleSlot } from "@/components/TeamRoleSlot";
+import { FounderCredibility } from "@/components/FounderCredibility";
 import { CTASection } from "@/components/CTASection";
 import { Container } from "@/components/ui/Container";
-import { teamMembers } from "@/lib/data";
+import { managingPartner, teamRoleSlots, founderCredibility } from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
   title: "Tim",
   description:
-    "Tim Trusted Jurist Law Firm dipimpin oleh Dr. Andin Sofyanoor, SH., MH. — struktur profesional untuk partner dan associate.",
+    "Tim Trusted Jurist Law Firm dipimpin oleh Dr. Andin Sofyanoor, SH., MH. Struktur partner dan associate sedang disusun secara resmi.",
   path: "/team",
 });
 
 export default function TeamPage() {
-  const managingPartner = teamMembers.filter((m) => !m.isPlaceholder);
-  const placeholders = teamMembers.filter((m) => m.isPlaceholder);
-
   return (
     <>
       <Hero
@@ -33,25 +32,35 @@ export default function TeamPage() {
             title="Managing Partner"
             description="Pemimpin firma yang mengarahkan visi reformasi hukum dan standar advokasi berintegritas."
           />
-          <div className="mx-auto grid max-w-2xl gap-6">
-            {managingPartner.map((member, i) => (
-              <TeamCard key={member.id} member={member} index={i} />
-            ))}
+          <div className="mx-auto max-w-2xl">
+            <TeamCard member={managingPartner} index={0} />
           </div>
         </Container>
       </section>
 
       <section className="border-t border-border bg-cream-dark/30 py-20 md:py-28">
-        <Container>
+        <Container size="narrow">
           <SectionHeader
-            eyebrow="Pengembangan Tim"
-            title="Partner & Associate"
-            description="Struktur tim sedang diperluas. Posisi partner dan associate akan diumumkan secara resmi."
+            eyebrow="Profil Kepemimpinan"
+            title="Kredibilitas Profesional"
+            description="Informasi berikut dapat disesuaikan dengan dokumentasi resmi firma sebelum publikasi website."
             align="center"
           />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {placeholders.map((member, i) => (
-              <TeamCard key={member.id} member={member} index={i} />
+          <FounderCredibility data={founderCredibility} />
+        </Container>
+      </section>
+
+      <section className="py-20 md:py-28">
+        <Container>
+          <SectionHeader
+            eyebrow="Pengembangan Organisasi"
+            title="Struktur Tim yang Sedang Disusun"
+            description="Trusted Jurist memperluas tim advokat secara bertahap. Posisi di bawah ini belum diisi dan akan diumumkan resmi — tanpa nama sementara."
+            align="center"
+          />
+          <div className="grid gap-6 md:grid-cols-3">
+            {teamRoleSlots.map((slot, i) => (
+              <TeamRoleSlot key={slot.id} slot={slot} index={i} />
             ))}
           </div>
         </Container>

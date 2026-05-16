@@ -4,26 +4,26 @@ import { Hero } from "@/components/Hero";
 import { ContactForm } from "@/components/ContactForm";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
-import { contactInfo } from "@/lib/data";
+import { CONTACT_CONFIG, contactInfo } from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
   title: "Kontak",
   description:
-    "Hubungi Trusted Jurist Law Firm di Sunter, Jakarta Timur. Konsultasi hukum, formulir kontak, dan WhatsApp.",
+    "Hubungi Trusted Jurist Law Firm di Sunter, Jakarta Timur. Jadwalkan konsultasi awal melalui formulir atau WhatsApp.",
   path: "/contact",
 });
 
 export default function ContactPage() {
-  const whatsappUrl = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(
-    "Halo Trusted Jurist Law Firm, saya ingin berkonsultasi mengenai kebutuhan hukum.",
+  const whatsappUrl = `https://wa.me/${CONTACT_CONFIG.whatsapp.number}?text=${encodeURIComponent(
+    CONTACT_CONFIG.whatsapp.defaultMessage,
   )}`;
 
   return (
     <>
       <Hero
         headline="Hubungi Kami"
-        subheadline="Tim Trusted Jurist siap mendengarkan kebutuhan hukum Anda dan merespons dengan profesional."
+        subheadline="Jadwalkan konsultasi awal dengan tim Trusted Jurist. Kami siap mendengarkan kebutuhan hukum Anda secara profesional."
         compact
       />
 
@@ -50,7 +50,7 @@ export default function ContactPage() {
                   icon={Phone}
                   label="Telepon"
                   value={contactInfo.phone}
-                  href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
+                  href={`tel:${contactInfo.phoneTel}`}
                 />
                 <ContactInfoItem
                   icon={Clock}
@@ -60,11 +60,7 @@ export default function ContactPage() {
               </ul>
 
               <div className="mt-10">
-                <ButtonLink
-                  href={whatsappUrl}
-                  variant="gold"
-                  className="w-full sm:w-auto"
-                >
+                <ButtonLink href={whatsappUrl} variant="gold" className="w-full sm:w-auto">
                   <MessageCircle className="size-4" aria-hidden />
                   Chat via WhatsApp
                 </ButtonLink>
@@ -73,15 +69,15 @@ export default function ContactPage() {
               <div
                 className="mt-10 flex aspect-[4/3] items-center justify-center rounded-sm border border-dashed border-border bg-cream-dark/50"
                 role="img"
-                aria-label="Placeholder peta lokasi kantor di Sunter, Jakarta Timur"
+                aria-label={`Placeholder peta lokasi kantor di ${contactInfo.address}`}
               >
-                <div className="text-center px-4">
+                <div className="px-4 text-center">
                   <MapPin className="mx-auto size-8 text-gold/70" aria-hidden />
                   <p className="mt-3 text-sm font-medium text-navy">
                     Peta Lokasi
                   </p>
                   <p className="mt-1 text-xs text-muted">
-                    Sunter, Jakarta Timur — integrasi peta dapat ditambahkan
+                    {CONTACT_CONFIG.mapNote}
                   </p>
                 </div>
               </div>
@@ -89,12 +85,12 @@ export default function ContactPage() {
 
             <div className="lg:col-span-3">
               <h2 className="font-serif text-2xl font-semibold text-navy">
-                Kirim Pesan
+                Jadwalkan Konsultasi Awal
               </h2>
               <p className="mt-2 text-sm text-muted">
                 Isi formulir di bawah ini. Pengiriman bersifat simulasi untuk
-                demonstrasi antarmuka — integrasi backend dapat ditambahkan
-                sesuai kebutuhan produksi.
+                demonstrasi antarmuka — integrasi backend dapat ditambahkan sesuai
+                kebutuhan produksi.
               </p>
               <div className="mt-8 rounded-sm border border-border bg-cream p-6 md:p-8">
                 <ContactForm />

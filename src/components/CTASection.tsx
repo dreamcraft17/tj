@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { AnimatedReveal } from "@/components/AnimatedReveal";
+import { CTA_LABELS } from "@/lib/constants";
 
 type CTASectionProps = {
   title?: string;
@@ -12,8 +13,8 @@ type CTASectionProps = {
 
 export function CTASection({
   title = "Butuh Pendampingan Hukum Profesional?",
-  description = "Hubungi Trusted Jurist Law Firm untuk konsultasi awal mengenai kebutuhan hukum Anda. Tim kami siap mendengarkan dan merancang langkah strategis berikutnya.",
-  primaryLabel = "Konsultasi Sekarang",
+  description = "Jadwalkan konsultasi awal dengan tim Trusted Jurist untuk membahas kebutuhan hukum Anda dan langkah strategis berikutnya.",
+  primaryLabel = CTA_LABELS.primary,
   primaryHref = "/contact",
 }: CTASectionProps) {
   return (

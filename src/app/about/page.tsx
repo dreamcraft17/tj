@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { SectionHeader } from "@/components/SectionHeader";
 import { ValueCard } from "@/components/ValueCard";
+import { TrustCommitments } from "@/components/TrustCommitments";
 import { CTASection } from "@/components/CTASection";
 import { AnimatedReveal } from "@/components/AnimatedReveal";
 import { Container } from "@/components/ui/Container";
@@ -29,7 +30,7 @@ export default function AboutPage() {
           <SectionHeader eyebrow="Profil" title={firmProfile.title} />
           <div className="space-y-6">
             {firmProfile.paragraphs.map((paragraph, i) => (
-              <AnimatedReveal key={i} delay={i * 0.1}>
+              <AnimatedReveal key={paragraph.slice(0, 24)} delay={i * 0.1}>
                 <p className="text-base leading-relaxed text-muted md:text-lg">
                   {paragraph}
                 </p>
@@ -72,6 +73,8 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+
+      <TrustCommitments />
 
       <section className="py-20 md:py-28">
         <Container>

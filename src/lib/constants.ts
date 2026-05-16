@@ -8,10 +8,12 @@ export const SITE_CONFIG = {
   locale: "id_ID",
   launchedDate: "2025-06-26",
   location: "Sunter, Jakarta Timur",
-  email: "kontak@trustedjurist.co.id",
-  phone: "+62 21 0000 0000",
-  whatsapp: "6281200000000",
 } as const;
 
-export const ENGINEERING_NOTE =
-  "Digital experience engineered to production-grade standards — architecture, performance, SEO, and maintainability by Senior Fullstack Engineering practice.";
+export const FOOTER_DESCRIPTION =
+  "Trusted Jurist Law Firm hadir sebagai mitra hukum profesional yang menjunjung integritas, keadilan, dan kepastian hukum.";
+
+export const CTA_LABELS = {
+  primary: "Jadwalkan Konsultasi Awal",
+  nav: "Konsultasi",
+} as const;

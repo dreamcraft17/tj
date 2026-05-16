@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { navigation, contactInfo } from "@/lib/data";
-import { SITE_CONFIG, ENGINEERING_NOTE } from "@/lib/constants";
+import { FOOTER_DESCRIPTION, SITE_CONFIG } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
 
 export function Footer() {
@@ -16,16 +16,18 @@ export function Footer() {
             <p className="mt-1 text-xs uppercase tracking-[0.2em] text-gold">
               Law Firm
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-cream/70">
-              Firma hukum profesional yang berkomitmen pada integritas,
-              reformasi hukum, dan penegakan hukum tanpa pandang bulu.
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/75">
+              {FOOTER_DESCRIPTION}
+            </p>
+            <p className="mt-5 text-xs tracking-wide text-cream/45">
+              Jakarta · {SITE_CONFIG.location}
             </p>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
               Navigasi
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-2">
               {navigation.map((item) => (
                 <li key={item.href}>
@@ -41,9 +43,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
               Bidang Fokus
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-2 text-sm text-cream/75">
               <li>Antikorupsi & Governance</li>
               <li>Litigasi & Sengketa</li>
@@ -53,9 +55,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
               Kontak
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-3 text-sm text-cream/75">
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
@@ -73,7 +75,7 @@ export function Footer() {
               <li className="flex gap-3">
                 <Phone className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
                 <a
-                  href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
+                  href={`tel:${contactInfo.phoneTel}`}
                   className="transition-colors hover:text-gold"
                 >
                   {contactInfo.phone}
@@ -83,12 +85,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-cream/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-cream/50">
+        <div className="mt-14 border-t border-cream/10 pt-8">
+          <p className="text-center text-xs text-cream/50 md:text-left">
             © {currentYear} {SITE_CONFIG.name}. Hak cipta dilindungi.
-          </p>
-          <p className="max-w-xl text-xs leading-relaxed text-cream/40">
-            {ENGINEERING_NOTE}
           </p>
         </div>
       </Container>

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { CTA_LABELS } from "@/lib/constants";
 
 type HeroProps = {
   headline: string;
@@ -16,7 +17,7 @@ type HeroProps = {
 export function Hero({
   headline,
   subheadline,
-  primaryCta = { label: "Konsultasi Sekarang", href: "/contact" },
+  primaryCta = { label: CTA_LABELS.primary, href: "/contact" },
   secondaryCta = { label: "Pelajari Layanan", href: "/practice-areas" },
   compact = false,
 }: HeroProps) {
@@ -27,10 +28,6 @@ export function Hero({
     >
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(184,134,11,0.12)_0%,_transparent_55%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-24 top-1/4 h-96 w-96 rounded-full border border-gold/10"
         aria-hidden
       />
 

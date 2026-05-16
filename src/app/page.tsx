@@ -2,10 +2,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { TrustIndicators } from "@/components/TrustIndicators";
+import { TrustCommitments } from "@/components/TrustCommitments";
 import { SectionHeader } from "@/components/SectionHeader";
 import { PracticeAreaCard } from "@/components/PracticeAreaCard";
 import { ValueCard } from "@/components/ValueCard";
 import { InsightCard } from "@/components/InsightCard";
+import { FounderCredibility } from "@/components/FounderCredibility";
 import { CTASection } from "@/components/CTASection";
 import { AnimatedReveal } from "@/components/AnimatedReveal";
 import { Container } from "@/components/ui/Container";
@@ -13,6 +15,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import {
   aboutPreview,
   founder,
+  founderCredibility,
   insights,
   practiceAreas,
   whyChooseUs,
@@ -30,6 +33,7 @@ export default function HomePage() {
         subheadline="Trusted Jurist Law Firm hadir sebagai mitra hukum profesional untuk mengawal keadilan, reformasi hukum, dan kepentingan klien dengan integritas tinggi."
       />
       <TrustIndicators />
+      <TrustCommitments />
 
       <section className="py-20 md:py-28" aria-labelledby="about-preview-heading">
         <Container>
@@ -91,33 +95,20 @@ export default function HomePage() {
 
       <section className="py-20 md:py-28" aria-labelledby="founder-heading">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
-            <AnimatedReveal className="lg:col-span-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                Managing Partner
-              </p>
-              <h2
-                id="founder-heading"
-                className="mt-3 font-serif text-3xl font-semibold text-navy md:text-4xl"
-              >
-                {founder.name}
-              </h2>
-              <p className="mt-2 text-sm font-medium text-muted">
-                {founder.title}
-              </p>
-            </AnimatedReveal>
-            <AnimatedReveal delay={0.1} className="lg:col-span-3">
-              <p className="text-base leading-relaxed text-muted md:text-lg">
-                {founder.bio}
-              </p>
-              <Link
-                href="/team"
-                className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-gold hover:text-gold-light"
-              >
-                Kenali Tim Kami
-                <ArrowRight className="size-4" />
-              </Link>
-            </AnimatedReveal>
+          <SectionHeader
+            eyebrow="Kepemimpinan"
+            title={founder.name}
+            description={founder.bio}
+          />
+          <FounderCredibility data={founderCredibility} />
+          <div className="mt-10 text-center">
+            <Link
+              href="/team"
+              className="inline-flex items-center gap-1 text-sm font-medium text-gold hover:text-gold-light"
+            >
+              Lihat Profil Tim
+              <ArrowRight className="size-4" aria-hidden />
+            </Link>
           </div>
         </Container>
       </section>
@@ -129,8 +120,8 @@ export default function HomePage() {
         <Container>
           <SectionHeader
             eyebrow="Mengapa Kami"
-            title="Standar Advokasi Kelas Enterprise"
-            description="Komitmen kami pada integritas dan keadilan tercermin dalam setiap pendekatan hukum yang kami ambil."
+            title="Pendekatan Hukum Strategis dan Terukur"
+            description="Komitmen kami pada integritas dan keadilan tercermin dalam setiap analisis, rekomendasi, dan langkah advokasi yang kami ambil."
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {whyChooseUs.map((item, i) => (
@@ -144,8 +135,8 @@ export default function HomePage() {
         <Container>
           <SectionHeader
             eyebrow="Wawasan"
-            title="Perspektif Hukum Terkini"
-            description="Artikel editorial mengenai penegakan hukum, antikorupsi, dan kepatuhan sektor strategis."
+            title="Materi Editorial dalam Penyusunan"
+            description="Artikel berikut masih dalam tahap draf editorial atau akan segera hadir — bukan publikasi final."
           />
           <div className="grid gap-6 md:grid-cols-3">
             {featuredInsights.map((article, i) => (
@@ -154,7 +145,7 @@ export default function HomePage() {
           </div>
           <div className="mt-10 text-center">
             <ButtonLink href="/insights" variant="secondary">
-              Baca Semua Wawasan
+              Lihat Daftar Wawasan
             </ButtonLink>
           </div>
         </Container>

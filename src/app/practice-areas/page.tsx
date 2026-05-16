@@ -28,15 +28,16 @@ export default function PracticeAreasPage() {
           <SectionHeader
             eyebrow="Layanan"
             title="Portofolio Keahlian Hukum"
-            description="Setiap bidang praktik didukung analisis mendalam, strategi terukur, dan komitmen pada integritas profesional."
+            description="Setiap bidang praktik mencakup ruang lingkup layanan, kebutuhan klien yang sesuai, dan output hukum yang dapat diharapkan."
             align="center"
           />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-8 lg:grid-cols-2">
             {practiceAreas.map((area, i) => (
               <PracticeAreaCard
                 key={area.id}
                 area={area}
                 index={i}
+                detailed
                 showLink
               />
             ))}
@@ -46,7 +47,7 @@ export default function PracticeAreasPage() {
 
       <CTASection
         title="Diskusikan Kebutuhan Hukum Anda"
-        description="Setiap persoalan hukum memiliki konteks unik. Konsultasikan dengan tim Trusted Jurist untuk pemetaan awal risiko dan langkah strategis."
+        description="Setiap persoalan hukum memiliki konteks unik. Jadwalkan konsultasi awal dengan tim Trusted Jurist untuk pemetaan risiko dan langkah strategis."
       />
     </>
   );

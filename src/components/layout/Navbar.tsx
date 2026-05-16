@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { navigation } from "@/lib/data";
-import { SITE_CONFIG } from "@/lib/constants";
+import { navigation, contactInfo } from "@/lib/data";
+import { CTA_LABELS, SITE_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -34,9 +34,9 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header
+    <div
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "transition-all duration-300",
         scrolled
           ? "border-b border-border/60 bg-cream/85 shadow-sm backdrop-blur-md"
           : "bg-transparent",
@@ -91,7 +91,7 @@ export function Navbar() {
 
           <div className="hidden lg:block">
             <ButtonLink href="/contact" variant="primary" size="sm">
-              Konsultasi
+              {CTA_LABELS.nav}
             </ButtonLink>
           </div>
 
@@ -144,14 +144,14 @@ export function Navbar() {
           </ul>
           <div className="mt-6 border-t border-border pt-6">
             <ButtonLink href="/contact" variant="primary" className="w-full">
-              Konsultasi Sekarang
+              {CTA_LABELS.primary}
             </ButtonLink>
             <p className="mt-4 text-center text-xs text-muted">
-              {SITE_CONFIG.location}
+              {contactInfo.address}
             </p>
           </div>
         </Container>
       </div>
-    </header>
+    </div>
   );
 }

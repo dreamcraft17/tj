@@ -1,5 +1,7 @@
 export type Locale = "id" | "en";
 
+export type InsightStatus = "editorial-draft" | "coming-soon";
+
 export interface NavItem {
   label: string;
   href: string;
@@ -13,6 +15,9 @@ export interface PracticeArea {
   description: string;
   descriptionEn?: string;
   icon: string;
+  scope: string;
+  clientNeeds: string;
+  legalOutput: string;
 }
 
 export interface CoreValue {
@@ -32,7 +37,14 @@ export interface TeamMember {
   credentials?: string;
   bio: string;
   bioEn?: string;
-  isPlaceholder?: boolean;
+}
+
+export interface TeamRoleSlot {
+  id: string;
+  role: string;
+  roleEn?: string;
+  description: string;
+  descriptionEn?: string;
 }
 
 export interface InsightArticle {
@@ -43,7 +55,7 @@ export interface InsightArticle {
   excerpt: string;
   excerptEn?: string;
   category: string;
-  publishedAt: string;
+  status: InsightStatus;
   readTime: string;
 }
 
@@ -52,6 +64,22 @@ export interface TrustIndicator {
   label: string;
   labelEn?: string;
   value: string;
+}
+
+export interface TrustCommitment {
+  id: string;
+  title: string;
+  titleEn?: string;
+  description: string;
+  descriptionEn?: string;
+  icon: string;
+}
+
+export interface FounderCredibility {
+  education: string[];
+  experience: string[];
+  practiceFocus: string[];
+  professionalActivities: string[];
 }
 
 export interface ContactFormData {

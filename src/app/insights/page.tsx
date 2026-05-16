@@ -10,7 +10,7 @@ import { createMetadata } from "@/lib/seo";
 export const metadata: Metadata = createMetadata({
   title: "Wawasan",
   description:
-    "Artikel dan perspektif hukum Trusted Jurist mengenai penegakan hukum, antikorupsi, dan kepatuhan sektor strategis.",
+    "Materi wawasan hukum Trusted Jurist — draf editorial dan konten yang akan segera hadir. Bukan publikasi final.",
   path: "/insights",
 });
 
@@ -19,7 +19,7 @@ export default function InsightsPage() {
     <>
       <Hero
         headline="Wawasan Hukum"
-        subheadline="Perspektif editorial mengenai isu penegakan hukum, governance, dan regulasi sektor yang menjadi fokus advokasi kami."
+        subheadline="Ruang perspektif editorial mengenai penegakan hukum, governance, dan regulasi sektor — dalam tahap penyusunan."
         compact
       />
 
@@ -27,10 +27,14 @@ export default function InsightsPage() {
         <Container>
           <SectionHeader
             eyebrow="Editorial"
-            title="Artikel Terbaru"
-            description="Konten ini bersifat informatif dan tidak merupakan nasihat hukum spesifik. Untuk pendampingan resmi, silakan hubungi firma."
+            title="Daftar Materi dalam Penyusunan"
+            description="Seluruh artikel di halaman ini ditandai sebagai draf editorial atau segera hadir. Konten final akan dipublikasikan setelah proses review internal."
             align="center"
           />
+          <div className="mb-10 rounded-sm border border-gold/30 bg-gold/5 px-5 py-4 text-center text-sm text-muted">
+            Tidak ada artikel yang dipublikasikan pada tahap ini. Informasi di
+            bawah ini bersifat indikatif topik editorial, bukan publikasi resmi.
+          </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {insights.map((article, i) => (
               <InsightCard key={article.id} article={article} index={i} />

@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { createMetadata } from "@/lib/seo";
 import { SITE_CONFIG } from "@/lib/constants";
+import { CONTACT_CONFIG } from "@/lib/data";
 import "@/styles/globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -33,11 +34,13 @@ const organizationJsonLd = {
   description: SITE_CONFIG.description,
   url: SITE_CONFIG.url,
   areaServed: "Jakarta, Indonesia",
+  email: CONTACT_CONFIG.email,
+  telephone: CONTACT_CONFIG.phone.tel,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Sunter",
-    addressRegion: "Jakarta Timur",
-    addressCountry: "ID",
+    streetAddress: CONTACT_CONFIG.address.line1,
+    addressLocality: CONTACT_CONFIG.address.line2,
+    addressCountry: CONTACT_CONFIG.address.country,
   },
 };
 
@@ -48,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${cormorant.variable} ${sourceSans.variable}`}>
-      <body className="min-h-screen bg-cream font-sans text-foreground antialiased">
+      <body className="flex min-h-screen flex-col bg-cream font-sans text-foreground antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -61,10 +64,15 @@ export default function RootLayout({
         >
           Lewati ke konten utama
         </a>
-        <Navbar />
-        <main id="main-content" className="pt-[4.5rem]">
+
+        <header className="fixed inset-x-0 top-0 z-50">
+          <Navbar />
+        </header>
+
+        <main id="main-content" className="flex-1 pt-[4.5rem]">
           {children}
         </main>
+
         <Footer />
       </body>
     </html>
