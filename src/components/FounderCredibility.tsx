@@ -1,5 +1,6 @@
 import type { FounderCredibility as FounderCredibilityData } from "@/types";
 import { AnimatedReveal } from "@/components/AnimatedReveal";
+import { type as t } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 type FounderCredibilityProps = {
@@ -13,34 +14,20 @@ const sections: {
 }[] = [
   { key: "education", title: "Pendidikan" },
   { key: "experience", title: "Pengalaman" },
-  { key: "practiceFocus", title: "Fokus Praktik" },
-  { key: "professionalActivities", title: "Kegiatan Profesional" },
+  { key: "practiceFocus", title: "Fokus praktik" },
+  { key: "professionalActivities", title: "Kegiatan profesional" },
 ];
 
 export function FounderCredibility({ data, className }: FounderCredibilityProps) {
   return (
-    <div
-      className={cn(
-        "grid gap-6 sm:grid-cols-2",
-        className,
-      )}
-    >
+    <div className={cn("mt-16 space-y-0", className)}>
       {sections.map((section, index) => (
-        <AnimatedReveal key={section.key} delay={index * 0.08}>
-          <div className="h-full rounded-sm border border-border bg-cream p-6">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              {section.title}
-            </h3>
-            <ul className="mt-4 space-y-2.5">
+        <AnimatedReveal key={section.key} delay={index * 0.05}>
+          <div className="border-t border-border py-10 md:py-12">
+            <h3 className={cn(t.eyebrow, "text-gold")}>{section.title}</h3>
+            <ul className="mt-5 space-y-3">
               {data[section.key].map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-3 text-sm leading-relaxed text-muted"
-                >
-                  <span
-                    className="mt-2 size-1 shrink-0 rounded-full bg-gold"
-                    aria-hidden
-                  />
+                <li key={item} className={cn(t.body, "text-muted")}>
                   {item}
                 </li>
               ))}

@@ -2,25 +2,23 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { TrustIndicators } from "@/components/TrustIndicators";
-import { TrustCommitments } from "@/components/TrustCommitments";
+import { CredibilitySection } from "@/components/CredibilitySection";
+import { AboutPreviewSection } from "@/components/AboutPreviewSection";
 import { SectionHeader } from "@/components/SectionHeader";
-import { PracticeAreaCard } from "@/components/PracticeAreaCard";
-import { ValueCard } from "@/components/ValueCard";
+import { PracticeAreasSection } from "@/components/PracticeAreasSection";
+import { WhyTrustedJuristSection } from "@/components/WhyTrustedJuristSection";
 import { InsightCard } from "@/components/InsightCard";
 import { FounderCredibility } from "@/components/FounderCredibility";
 import { CTASection } from "@/components/CTASection";
-import { AnimatedReveal } from "@/components/AnimatedReveal";
 import { Container } from "@/components/ui/Container";
-import { ButtonLink } from "@/components/ui/Button";
 import {
-  aboutPreview,
   founder,
   founderCredibility,
   insights,
   practiceAreas,
-  whyChooseUs,
 } from "@/lib/data";
-import { SITE_CONFIG } from "@/lib/constants";
+import { type as t } from "@/lib/typography";
+import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   const featuredAreas = practiceAreas.slice(0, 4);
@@ -33,121 +31,72 @@ export default function HomePage() {
         subheadline="Trusted Jurist Law Firm hadir sebagai mitra hukum profesional untuk mengawal keadilan, reformasi hukum, dan kepentingan klien dengan integritas tinggi."
       />
       <TrustIndicators />
-      <TrustCommitments />
+      <CredibilitySection />
+      <AboutPreviewSection />
 
-      <section className="py-20 md:py-28" aria-labelledby="about-preview-heading">
+      <PracticeAreasSection areas={featuredAreas} />
+
+      <section className="section-pad" aria-labelledby="founder-heading">
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <SectionHeader
-              eyebrow="Tentang Kami"
-              title={aboutPreview.title}
-              description={aboutPreview.description}
-              className="mb-0"
-            />
-            <AnimatedReveal delay={0.15}>
-              <div className="rounded-sm border border-border bg-cream-dark/40 p-8 md:p-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-                  Diluncurkan Resmi
-                </p>
-                <p className="mt-2 font-serif text-2xl text-navy">26 Juni 2025</p>
-                <p className="mt-6 text-sm leading-relaxed text-muted">
-                  Beroperasi dari {SITE_CONFIG.location}, Trusted Jurist
-                  memfokuskan layanan pada reformasi hukum, antikorupsi,
-                  pertambangan, perkebunan, penyelundupan, serta hukum publik dan
-                  korporasi — dengan pendekatan tegas dan berpihak pada keadilan.
-                </p>
-                <ButtonLink
-                  href="/about"
-                  variant="secondary"
-                  className="mt-8"
-                >
-                  Pelajari Profil Firma
-                  <ArrowRight className="size-4" aria-hidden />
-                </ButtonLink>
-              </div>
-            </AnimatedReveal>
+          <div className="grid gap-16 lg:grid-cols-12 lg:gap-x-20">
+            <div className="lg:col-span-5">
+              <SectionHeader
+                eyebrow="Kepemimpinan"
+                title={founder.name}
+                className="mb-0"
+              />
+            </div>
+            <div className="lg:col-span-7">
+              <p
+                id="founder-heading"
+                className={cn(t.body, "text-muted lg:pt-14")}
+              >
+                {founder.bio}
+              </p>
+              <FounderCredibility data={founderCredibility} className="mt-0" />
+              <Link
+                href="/team"
+                className={cn(
+                  "mt-12 inline-flex items-center gap-2 border-b border-navy/30 pb-0.5 text-navy",
+                  t.label,
+                  "transition-colors hover:border-gold hover:text-gold",
+                )}
+              >
+                Profil tim
+                <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
 
-      <section
-        className="border-y border-border bg-cream-dark/30 py-20 md:py-28"
-        aria-labelledby="practice-preview-heading"
-      >
-        <Container>
-          <SectionHeader
-            eyebrow="Bidang Praktik"
-            title="Keahlian Hukum yang Strategis"
-            description="Kami mendampingi klien dalam berbagai persoalan hukum kompleks — dari litigasi hingga advisory regulasi sektor."
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredAreas.map((area, i) => (
-              <PracticeAreaCard key={area.id} area={area} index={i} />
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <ButtonLink href="/practice-areas" variant="secondary">
-              Lihat Semua Bidang Praktik
-            </ButtonLink>
-          </div>
-        </Container>
-      </section>
+      <WhyTrustedJuristSection />
 
-      <section className="py-20 md:py-28" aria-labelledby="founder-heading">
-        <Container>
-          <SectionHeader
-            eyebrow="Kepemimpinan"
-            title={founder.name}
-            description={founder.bio}
-          />
-          <FounderCredibility data={founderCredibility} />
-          <div className="mt-10 text-center">
-            <Link
-              href="/team"
-              className="inline-flex items-center gap-1 text-sm font-medium text-gold hover:text-gold-light"
-            >
-              Lihat Profil Tim
-              <ArrowRight className="size-4" aria-hidden />
-            </Link>
-          </div>
-        </Container>
-      </section>
-
-      <section
-        className="border-t border-border bg-cream py-20 md:py-28"
-        aria-labelledby="why-heading"
-      >
-        <Container>
-          <SectionHeader
-            eyebrow="Mengapa Kami"
-            title="Pendekatan Hukum Strategis dan Terukur"
-            description="Komitmen kami pada integritas dan keadilan tercermin dalam setiap analisis, rekomendasi, dan langkah advokasi yang kami ambil."
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {whyChooseUs.map((item, i) => (
-              <ValueCard key={item.id} value={item} index={i} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-20 md:py-28" aria-labelledby="insights-preview-heading">
+      <section className="section-pad border-t border-border" aria-labelledby="insights-preview-heading">
         <Container>
           <SectionHeader
             eyebrow="Wawasan"
-            title="Materi Editorial dalam Penyusunan"
+            title="Materi editorial dalam penyusunan"
+            titleId="insights-preview-heading"
             description="Artikel berikut masih dalam tahap draf editorial atau akan segera hadir — bukan publikasi final."
+            className="mb-0"
           />
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="mt-16 md:mt-20">
             {featuredInsights.map((article, i) => (
               <InsightCard key={article.id} article={article} index={i} />
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <ButtonLink href="/insights" variant="secondary">
-              Lihat Daftar Wawasan
-            </ButtonLink>
-          </div>
+          <Link
+            href="/insights"
+            className={cn(
+              "mt-12 inline-flex items-center gap-2 text-navy",
+              t.label,
+              "transition-colors hover:text-gold",
+            )}
+          >
+            Daftar wawasan
+            <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
+          </Link>
         </Container>
       </section>
 

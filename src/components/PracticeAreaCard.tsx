@@ -1,24 +1,25 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { PracticeArea } from "@/types";
-import { DynamicIcon } from "@/components/ui/IconMap";
 import { AnimatedReveal } from "@/components/AnimatedReveal";
+import { cnInteractive } from "@/lib/motion";
+import { type as t } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 type PracticeAreaCardProps = {
   area: PracticeArea;
   index?: number;
-  showLink?: boolean;
-  detailed?: boolean;
+  variant?: "preview" | "editorial";
+  showConsultLink?: boolean;
 };
 
-function DetailBlock({ label, text }: { label: string; text: string }) {
+function ScopeBlock({ label, text }: { label: string; text: string }) {
   return (
-    <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-gold">
-        {label}
-      </p>
-      <p className="mt-1.5 text-sm leading-relaxed text-muted">{text}</p>
+    <div className="max-w-md">
+      <p className={cn(t.eyebrow, "text-gold")}>{label}</p>
+      <p className={cn(t.bodySm, "mt-3 text-muted")}>{text}</p>
     </div>
   );
 }
@@ -26,50 +27,82 @@ function DetailBlock({ label, text }: { label: string; text: string }) {
 export function PracticeAreaCard({
   area,
   index = 0,
-  showLink = true,
-  detailed = false,
+  variant = "preview",
+  showConsultLink = true,
 }: PracticeAreaCardProps) {
-  return (
-    <AnimatedReveal delay={index * 0.06}>
-      <article
-        className={cn(
-          "group relative flex h-full flex-col rounded-sm border border-border bg-cream transition-all duration-300",
-          detailed ? "p-8" : "p-6",
-          "hover:-translate-y-1 hover:border-gold/40 hover:shadow-lg hover:shadow-navy/5",
-        )}
-      >
-        <div className="mb-4 inline-flex size-11 items-center justify-center rounded-sm bg-navy/5 text-gold transition-colors group-hover:bg-gold/10">
-          <DynamicIcon name={area.icon} className="size-5" />
-        </div>
+  const isEditorial = variant === "editorial";
+  const displayIndex = String(index + 1).padStart(2, "0");
+  const offset = index % 2 === 1;
 
-        <h3
+  if (!isEditorial) {
+    return (
+      <AnimatedReveal delay={index * 0.06}>
+        <article
           className={cn(
-            "font-serif font-semibold text-navy",
-            detailed ? "text-2xl" : "text-xl",
+            "group border-t border-border py-12 md:py-14",
+            offset && "md:pl-12 lg:pl-20",
           )}
         >
-          {area.title}
-        </h3>
+          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-12">
+            <div className="md:max-w-xl">
+              <p className={cn(t.caption, "tabular-nums text-muted")}>
+                {displayIndex}
+              </p>
+              <h3 className={cn(t.h3, "mt-4 text-navy")}>{area.title}</h3>
+              <p className={cn(t.body, "mt-5 text-muted")}>{area.description}</p>
+            </div>
+            <div className="md:w-72 md:shrink-0 md:pt-8">
+              <p className={cn(t.eyebrow, "text-muted")}>Ruang lingkup</p>
+              <p className={cn(t.bodySm, "mt-3 text-muted/90")}>{area.scope}</p>
+            </div>
+          </div>
+          <Link
+            href={`/practice-areas#${area.id}`}
+            className={cn(
+              "mt-8 inline-flex items-center gap-2 text-navy",
+              t.label,
+              cnInteractive.link,
+            )}
+          >
+            Selengkapnya
+            <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
+          </Link>
+        </article>
+      </AnimatedReveal>
+    );
+  }
 
-        <p className="mt-3 text-sm leading-relaxed text-muted">
+  return (
+    <AnimatedReveal delay={index * 0.07}>
+      <article
+        id={area.id}
+        className="scroll-mt-32 border-t border-border py-16 md:py-20"
+      >
+        <p className={cn(t.caption, "tabular-nums text-muted")}>
+          {displayIndex}
+        </p>
+        <h3 className={cn(t.h2, "mt-5 max-w-2xl text-navy")}>{area.title}</h3>
+        <p className={cn(t.lead, "mt-6 max-w-2xl text-muted")}>
           {area.description}
         </p>
 
-        {detailed && (
-          <div className="mt-6 space-y-5 border-t border-border pt-6">
-            <DetailBlock label="Ruang Lingkup Layanan" text={area.scope} />
-            <DetailBlock label="Kebutuhan Klien yang Sesuai" text={area.clientNeeds} />
-            <DetailBlock label="Output Hukum yang Diharapkan" text={area.legalOutput} />
-          </div>
-        )}
+        <div className="mt-14 grid gap-12 md:grid-cols-3 md:gap-10">
+          <ScopeBlock label="Ruang lingkup" text={area.scope} />
+          <ScopeBlock label="Kebutuhan klien" text={area.clientNeeds} />
+          <ScopeBlock label="Output hukum" text={area.legalOutput} />
+        </div>
 
-        {showLink && (
+        {showConsultLink && (
           <Link
             href="/contact"
-            className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-gold transition-colors hover:text-gold-light"
+            className={cn(
+              "mt-12 inline-flex items-center gap-2 border-b border-gold pb-0.5 text-gold",
+              t.label,
+              cnInteractive.link,
+            )}
           >
-            Jadwalkan konsultasi bidang ini
-            <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            Jadwalkan konsultasi
+            <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
           </Link>
         )}
       </article>

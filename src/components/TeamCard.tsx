@@ -1,6 +1,8 @@
 import { User } from "lucide-react";
 import type { TeamMember } from "@/types";
 import { AnimatedReveal } from "@/components/AnimatedReveal";
+import { cnInteractive } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 type TeamCardProps = {
   member: TeamMember;
@@ -10,7 +12,13 @@ type TeamCardProps = {
 export function TeamCard({ member, index = 0 }: TeamCardProps) {
   return (
     <AnimatedReveal delay={index * 0.08}>
-      <article className="flex h-full flex-col rounded-sm border border-border bg-cream p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold/30 hover:shadow-md">
+      <article
+        className={cn(
+          "flex h-full flex-col rounded-sm border border-border bg-cream p-8",
+          cnInteractive.card,
+          "hover:border-gold/30",
+        )}
+      >
         <div className="mb-5 flex size-16 items-center justify-center rounded-sm bg-navy text-cream">
           <User className="size-8" strokeWidth={1.25} aria-hidden />
         </div>

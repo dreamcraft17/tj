@@ -1,22 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { forwardRef, type ButtonHTMLAttributes } from "react";
+import { cnInteractive } from "@/lib/motion";
+import { type as t } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 const variants = {
   primary:
-    "bg-navy text-cream hover:bg-navy-light border border-navy shadow-sm hover:shadow-md",
+    "bg-navy text-cream border border-navy hover:bg-navy-light",
   secondary:
-    "bg-transparent text-navy border border-navy/30 hover:border-gold hover:text-gold",
-  gold: "bg-gold text-navy hover:bg-gold-light border border-gold shadow-sm hover:shadow-md",
-  ghost: "bg-transparent text-cream hover:bg-white/10 border border-transparent",
+    "bg-transparent text-navy border border-navy/25 hover:border-navy",
+  gold: "bg-gold text-cream border border-gold hover:bg-gold-light",
+  ghost: "bg-transparent text-cream border border-cream/30 hover:border-cream/60",
   outlineLight:
-    "bg-transparent text-cream border border-cream/40 hover:border-gold hover:text-gold",
+    "bg-transparent text-cream border border-cream/35 hover:border-cream",
 } as const;
 
 const sizes = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-2.5 text-sm",
-  lg: "px-8 py-3 text-base",
+  sm: "px-4 py-2",
+  md: "px-6 py-2.5",
+  lg: "px-7 py-3",
 } as const;
 
 export type ButtonVariant = keyof typeof variants;
@@ -36,6 +40,21 @@ type ButtonLinkProps = {
   children: React.ReactNode;
 };
 
+function buttonClasses(
+  variant: ButtonVariant,
+  size: ButtonSize,
+  className?: string,
+) {
+  return cn(
+    "inline-flex items-center justify-center gap-2",
+    t.label,
+    cnInteractive.button,
+    variants[variant],
+    sizes[size],
+    className,
+  );
+}
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -52,12 +71,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     <button
       ref={ref}
       disabled={disabled || isLoading}
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-sm font-medium tracking-wide transition-all duration-300 ease-out disabled:pointer-events-none disabled:opacity-50",
-        variants[variant],
-        sizes[size],
-        className,
-      )}
+      className={buttonClasses(variant, size, className)}
       {...props}
     >
       {isLoading ? (
@@ -84,13 +98,7 @@ export function ButtonLink({
   className,
   children,
 }: ButtonLinkProps) {
-  const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-sm font-medium tracking-wide transition-all duration-300 ease-out",
-    variants[variant],
-    sizes[size],
-    className,
-  );
-
+  const classes = buttonClasses(variant, size, className);
   const isExternal = href.startsWith("http");
 
   if (isExternal) {

@@ -75,6 +75,12 @@ export interface TrustCommitment {
   icon: string;
 }
 
+export interface CredibilityPillar {
+  id: string;
+  title: string;
+  description: string;
+}
+
 export interface FounderCredibility {
   education: string[];
   experience: string[];
@@ -88,4 +94,26 @@ export interface ContactFormData {
   phone: string;
   subject: string;
   message: string;
+}
+
+export interface EditorialSection {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  paragraphs: string[];
+}
+
+export interface ApproachPillar {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface WhyTrustedJuristPillar {
+  id: string;
+  title: string;
+  titleEn: string;
+  description: string;
+  icon: string;
 }

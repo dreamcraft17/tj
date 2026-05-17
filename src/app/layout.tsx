@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { createMetadata } from "@/lib/seo";
@@ -14,10 +14,10 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -50,8 +50,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${cormorant.variable} ${sourceSans.variable}`}>
-      <body className="flex min-h-screen flex-col bg-cream font-sans text-foreground antialiased">
+    <html lang="id" className={`${cormorant.variable} ${manrope.variable}`}>
+      <body className="flex min-h-screen flex-col bg-cream text-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -69,7 +69,7 @@ export default function RootLayout({
           <Navbar />
         </header>
 
-        <main id="main-content" className="flex-1 pt-[4.5rem]">
+        <main id="main-content" className="flex-1 pt-[5.25rem]">
           {children}
         </main>
 

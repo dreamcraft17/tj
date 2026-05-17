@@ -6,19 +6,22 @@ import { Container } from "@/components/ui/Container";
 export function TrustCommitments() {
   return (
     <section
-      className="border-y border-border bg-cream-dark/40 py-20 md:py-28"
+      className="section-pad border-t border-border"
       aria-labelledby="trust-commitments-heading"
     >
       <Container>
-        <SectionHeader
-          eyebrow="Komitmen Profesional"
-          title="Prinsip yang Menjaga Kepercayaan Klien"
-          description="Tanpa klaim yang tidak dapat diverifikasi — kami mengikat diri pada standar etika, kerahasiaan, dan transparansi proses kerja."
-          align="center"
-        />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {trustCommitments.map((item, i) => (
-            <ValueCard key={item.id} value={item} index={i} />
+        <div className="max-w-2xl">
+          <SectionHeader
+            eyebrow="Komitmen profesional"
+            title="Prinsip yang menjaga kepercayaan klien"
+            titleId="trust-commitments-heading"
+            description="Tanpa klaim yang tidak dapat diverifikasi — kami mengikat diri pada standar etika, kerahasiaan, dan transparansi proses kerja."
+            className="mb-0"
+          />
+        </div>
+        <div className="mt-16 md:mt-20">
+          {trustCommitments.map((item) => (
+            <ValueCard key={item.id} value={item} />
           ))}
         </div>
       </Container>

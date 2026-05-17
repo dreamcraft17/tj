@@ -17,3 +17,10 @@ export const CTA_LABELS = {
   primary: "Jadwalkan Konsultasi Awal",
   nav: "Konsultasi",
 } as const;
+
+export const FOOTER_LEGAL = {
+  disclaimer:
+    "Informasi pada website ini bersifat umum dan tidak merupakan nasihat hukum, opini hukum, atau hubungan advokat-klien. Untuk pendampingan resmi, hubungi firma dan lakukan konsultasi langsung. Trusted Jurist Law Firm tidak menjamin hasil perkara melalui materi yang dipublikasikan di website ini.",
+  hoursNote:
+    "Jam operasional berikut bersifat indikatif; konfirmasi janji temu melalui kontak resmi firma.",
+} as const;

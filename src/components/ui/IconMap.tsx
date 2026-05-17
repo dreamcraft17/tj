@@ -5,8 +5,11 @@ import {
   Building2,
   FileSearch,
   Gavel,
+  Compass,
   Handshake,
+  Headphones,
   Landmark,
+  Lock,
   Mountain,
   Package,
   Scale,
@@ -33,6 +36,9 @@ const iconMap: Record<string, LucideIcon> = {
   Briefcase,
   Target,
   Handshake,
+  Compass,
+  Lock,
+  Headphones,
 };
 
 type DynamicIconProps = {

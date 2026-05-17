@@ -23,22 +23,25 @@ export default function PracticeAreasPage() {
         compact
       />
 
-      <section className="py-20 md:py-28">
+      <section className="py-24 md:py-32 lg:py-36">
         <Container>
           <SectionHeader
-            eyebrow="Layanan"
-            title="Portofolio Keahlian Hukum"
-            description="Setiap bidang praktik mencakup ruang lingkup layanan, kebutuhan klien yang sesuai, dan output hukum yang dapat diharapkan."
+            eyebrow="Layanan Hukum"
+            title="Portofolio Keahlian & Ruang Lingkup"
+            titleId="practice-portfolio-heading"
+            description="Setiap bidang praktik disusun dengan deskripsi layanan, cakupan kerja, profil kebutuhan klien, dan output hukum yang dapat diharapkan — demi transparansi dan kepastian sejak awal keterlibatan."
             align="center"
+            className="mx-auto max-w-3xl"
           />
-          <div className="grid gap-8 lg:grid-cols-2">
+
+          <div className="mt-16 space-y-12 md:mt-20 md:space-y-14 lg:space-y-16">
             {practiceAreas.map((area, i) => (
               <PracticeAreaCard
                 key={area.id}
                 area={area}
                 index={i}
-                detailed
-                showLink
+                variant="editorial"
+                showConsultLink
               />
             ))}
           </div>

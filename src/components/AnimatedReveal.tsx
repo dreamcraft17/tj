@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { DURATION, EASE_PREMIUM, VIEWPORT_DEFAULT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type AnimatedRevealProps = {
@@ -8,6 +9,7 @@ type AnimatedRevealProps = {
   className?: string;
   delay?: number;
   once?: boolean;
+  amount?: number;
 };
 
 export function AnimatedReveal({
@@ -15,16 +17,23 @@ export function AnimatedReveal({
   className,
   delay = 0,
   once = true,
+  amount = 0.08,
 }: AnimatedRevealProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={cn(className)}>{children}</div>;
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-60px" }}
+      viewport={{ ...VIEWPORT_DEFAULT, once, amount }}
       transition={{
-        duration: 0.55,
+        duration: DURATION.reveal,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: EASE_PREMIUM,
       }}
       className={cn(className)}
     >

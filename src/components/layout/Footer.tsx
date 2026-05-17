@@ -1,94 +1,151 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { navigation, contactInfo } from "@/lib/data";
-import { FOOTER_DESCRIPTION, SITE_CONFIG } from "@/lib/constants";
+import {
+  CONTACT_CONFIG,
+  contactInfo,
+  footerPracticeLinks,
+  navigation,
+} from "@/lib/data";
+import { FOOTER_DESCRIPTION, FOOTER_LEGAL, SITE_CONFIG } from "@/lib/constants";
+import { cnInteractive } from "@/lib/motion";
+import { type as t } from "@/lib/typography";
+import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
+
+function FooterHeading({ children }: { children: React.ReactNode }) {
+  return <p className={cn(t.eyebrow, "text-cream/40")}>{children}</p>;
+}
+
+function FooterLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className={cn(t.bodySm, "text-cream/60", cnInteractive.link)}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-navy-light/30 bg-navy text-cream">
-      <Container className="py-16 md:py-20">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-1">
-            <p className="font-serif text-2xl font-semibold">Trusted Jurist</p>
-            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-gold">
-              Law Firm
-            </p>
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/75">
+    <footer className="bg-navy text-cream">
+      <Container className="section-pad">
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-x-16">
+          <div className="lg:col-span-5">
+            <Link href="/" className="inline-block">
+              <p className={cn(t.h3, "text-cream")}>Trusted Jurist</p>
+              <p className={cn(t.eyebrow, "mt-2 text-cream/40")}>Law Firm</p>
+            </Link>
+            <p className={cn(t.body, "mt-8 max-w-sm text-cream/55")}>
               {FOOTER_DESCRIPTION}
             </p>
-            <p className="mt-5 text-xs tracking-wide text-cream/45">
-              Jakarta · {SITE_CONFIG.location}
-            </p>
+            <Link
+              href="/contact"
+              className={cn(
+                "mt-10 inline-block border-b border-cream/30 pb-0.5 text-cream",
+                t.label,
+                "transition-colors hover:border-gold hover:text-gold",
+              )}
+            >
+              Jadwalkan konsultasi
+            </Link>
           </div>
 
-          <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Navigasi
-            </h2>
-            <ul className="mt-4 space-y-2">
-              {navigation.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-cream/75 transition-colors hover:text-gold"
-                  >
-                    {item.label}
-                  </Link>
+          <div className="grid gap-12 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-3">
+            <div>
+              <FooterHeading>Navigasi</FooterHeading>
+              <ul className="mt-5 space-y-3" role="list">
+                {navigation.map((item) => (
+                  <li key={item.href}>
+                    <FooterLink href={item.href}>{item.label}</FooterLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <FooterHeading>Bidang praktik</FooterHeading>
+              <ul className="mt-5 space-y-2.5" role="list">
+                {footerPracticeLinks.slice(0, 6).map((item) => (
+                  <li key={item.id}>
+                    <FooterLink href={item.href}>{item.label}</FooterLink>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/practice-areas"
+                className={cn(t.caption, "mt-4 inline-block text-gold/70 hover:text-gold")}
+              >
+                Lihat semua
+              </Link>
+            </div>
+
+            <div>
+              <FooterHeading>Kantor</FooterHeading>
+              <ul className="mt-5 space-y-5" role="list">
+                <li className="flex gap-3">
+                  <MapPin
+                    className="mt-1 size-4 shrink-0 text-cream/35"
+                    strokeWidth={1.25}
+                    aria-hidden
+                  />
+                  <span className={cn(t.bodySm, "text-cream/60")}>
+                    {CONTACT_CONFIG.address.display}
+                  </span>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Bidang Fokus
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm text-cream/75">
-              <li>Antikorupsi & Governance</li>
-              <li>Litigasi & Sengketa</li>
-              <li>Hukum Korporasi</li>
-              <li>Pertambangan & Perkebunan</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Kontak
-            </h2>
-            <ul className="mt-4 space-y-3 text-sm text-cream/75">
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
-                <span>{contactInfo.address}</span>
-              </li>
-              <li className="flex gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
-                <a
-                  href={`mailto:${contactInfo.email}`}
-                  className="transition-colors hover:text-gold"
-                >
-                  {contactInfo.email}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
-                <a
-                  href={`tel:${contactInfo.phoneTel}`}
-                  className="transition-colors hover:text-gold"
-                >
-                  {contactInfo.phone}
-                </a>
-              </li>
-            </ul>
+                <li className="flex gap-3">
+                  <Mail
+                    className="mt-1 size-4 shrink-0 text-cream/35"
+                    strokeWidth={1.25}
+                    aria-hidden
+                  />
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className={cn(t.bodySm, "text-cream/60 hover:text-gold")}
+                  >
+                    {contactInfo.email}
+                  </a>
+                </li>
+                <li className="flex gap-3">
+                  <Phone
+                    className="mt-1 size-4 shrink-0 text-cream/35"
+                    strokeWidth={1.25}
+                    aria-hidden
+                  />
+                  <a
+                    href={`tel:${contactInfo.phoneTel}`}
+                    className={cn(t.bodySm, "text-cream/60 hover:text-gold")}
+                  >
+                    {contactInfo.phone}
+                  </a>
+                </li>
+              </ul>
+              <p className={cn(t.caption, "mt-6 text-cream/35")}>
+                {contactInfo.hours}
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 border-t border-cream/10 pt-8">
-          <p className="text-center text-xs text-cream/50 md:text-left">
-            © {currentYear} {SITE_CONFIG.name}. Hak cipta dilindungi.
+        <div className="mt-20 border-t border-cream/10 pt-10 md:mt-28">
+          <p className={cn(t.caption, "max-w-3xl text-cream/40")}>
+            {FOOTER_LEGAL.disclaimer}
           </p>
+          <div className="mt-8 flex flex-col gap-2 md:flex-row md:justify-between">
+            <p className={cn(t.caption, "text-cream/45")}>
+              © {currentYear} {SITE_CONFIG.name}
+            </p>
+            <p className={cn(t.caption, "text-cream/35")}>{SITE_CONFIG.tagline}</p>
+          </div>
         </div>
       </Container>
     </footer>

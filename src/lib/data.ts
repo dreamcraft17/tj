@@ -1,5 +1,8 @@
 import type {
+  ApproachPillar,
   CoreValue,
+  CredibilityPillar,
+  EditorialSection,
   FounderCredibility,
   InsightArticle,
   NavItem,
@@ -8,6 +11,7 @@ import type {
   TeamRoleSlot,
   TrustCommitment,
   TrustIndicator,
+  WhyTrustedJuristPillar,
 } from "@/types";
 
 export const navigation: NavItem[] = [
@@ -84,6 +88,46 @@ export const trustIndicators: TrustIndicator[] = [
   },
 ];
 
+export const credibilitySection = {
+  eyebrow: "Kepercayaan & Kredibilitas",
+  headline: "Advokasi yang Bermartabat, Terukur, dan Berpihak pada Keadilan",
+  lead:
+    "Trusted Jurist menempatkan kepercayaan klien sebagai aset utama — melalui pemikiran hukum strategis, integritas tanpa kompromi, dan representasi profesional yang konsisten.",
+};
+
+export const credibilityPillars: CredibilityPillar[] = [
+  {
+    id: "strategic",
+    title: "Pemikiran Hukum Strategis",
+    description:
+      "Setiap mandat dimulai dengan diagnosis hukum yang mendalam, pemetaan risiko, dan perancangan langkah yang proporsional — bukan reaksi sesaat.",
+  },
+  {
+    id: "integrity",
+    title: "Integritas sebagai Prinsip Awal",
+    description:
+      "Rekomendasi kami independen, berlandaskan hukum dan fakta, tanpa kompromi terhadap tekanan non-profesional maupun kepentingan sesaat.",
+  },
+  {
+    id: "confidentiality",
+    title: "Kerahasiaan yang Terjaga",
+    description:
+      "Informasi klien dan dokumen perkara dikelola dengan protokol akses terbatas, prinsip kerahasiaan profesi, dan tanggung jawab akuntabilitas internal.",
+  },
+  {
+    id: "representation",
+    title: "Representasi Hukum Profesional",
+    description:
+      "Pendampingan dilakukan dengan standar etika advokat, komunikasi yang jelas, dan dokumentasi proses yang memungkinkan klien memahami setiap tahapan.",
+  },
+  {
+    id: "justice",
+    title: "Komitmen pada Keadilan",
+    description:
+      "Kami berpihak pada penegakan hukum yang substantif dan kepastian hukum — termasuk dalam isu publik, korporasi, dan reformasi yang memerlukan posisi tegas.",
+  },
+];
+
 export const trustCommitments: TrustCommitment[] = [
   {
     id: "ethics",
@@ -116,19 +160,97 @@ export const trustCommitments: TrustCommitment[] = [
 ];
 
 export const aboutPreview = {
-  title: "Mitra Hukum yang Berpihak pada Keadilan",
-  titleEn: "A Legal Partner Committed to Justice",
+  title: "Profil Firma Hukum yang Berpihak pada Keadilan",
+  titleEn: "A Law Firm Profile Committed to Justice",
+  lead:
+    "Trusted Jurist Law Firm didirikan untuk mendampingi klien dalam persoalan hukum yang menuntut analisis mendalam, posisi tegas, dan integritas profesional tanpa kompromi.",
   description:
-    "Trusted Jurist Law Firm resmi beroperasi sejak 26 Juni 2025 di Jakarta, dipimpin oleh Dr. Andin Sofyanoor, SH., MH. Kami hadir untuk mendampingi klien dalam persoalan hukum publik, korporasi, dan penegakan hukum dengan standar profesionalisme tertinggi.",
+    "Beroperasi dari Jakarta sejak 26 Juni 2025, firma ini berfokus pada reformasi hukum, antikorupsi, dan penegakan hukum di sektor publik, korporasi, serta sumber daya alam.",
   descriptionEn:
-    "Trusted Jurist Law Firm has operated from Jakarta since 26 June 2025, led by Dr. Andin Sofyanoor, SH., MH.",
+    "Operating from Jakarta since 26 June 2025, focused on legal reform, anti-corruption, and law enforcement.",
 };
 
 export const firmProfile = {
   title: "Profil Firma",
+  lead:
+    "Trusted Jurist Law Firm adalah firma hukum Indonesia yang menempatkan keadilan substantif, akuntabilitas hukum, dan etika profesi sebagai dasar setiap pendampingan.",
   paragraphs: [
-    "Trusted Jurist Law Firm adalah firma hukum Indonesia yang didirikan dengan komitmen kuat terhadap integritas, keadilan, dan reformasi sistem hukum nasional. Berbasis di kawasan Sunter, Jakarta Timur, firma ini melayani kebutuhan hukum strategis bagi individu, korporasi, dan institusi yang memerlukan advokasi tegas dan berlandaskan hukum.",
-    "Sejak peluncuran resmi pada 26 Juni 2025, Trusted Jurist membangun pendekatan kerja melalui analisis hukum yang mendalam, transparansi proses, dan dedikasi pada penegakan hukum tanpa pandang bulu — termasuk dalam isu antikorupsi, sektor pertambangan, perkebunan, penyelundupan, serta regulasi publik dan korporasi.",
+    "Didirikan dan dipimpin oleh Dr. Andin Sofyanoor, SH., MH., firma ini beroperasi dari kawasan Sunter, Jakarta Timur, dengan orientasi layanan pada isu-isu yang memiliki dimensi publik, regulasi sektor, dan kepentingan kepatuhan hukum yang strategis.",
+    "Kami tidak memosisikan diri sebagai penyedia layanan hukum bersifat transaksional semata. Trusted Jurist hadir sebagai mitra hukum yang memahami konteks kebijakan, risiko regulasi, dan implikasi jangka panjang dari setiap keputusan hukum yang diambil klien.",
+    "Peluncuran resmi pada 26 Juni 2025 menandai komitmen firma untuk berkontribusi pada penegakan hukum yang berintegritas — termasuk dalam agenda antikorupsi, pertambangan, perkebunan, kepabeanan, serta hukum korporasi dan administrasi negara.",
+  ],
+};
+
+export const firmPhilosophy: EditorialSection = {
+  id: "philosophy",
+  eyebrow: "Filosofi Firma",
+  title: "Hukum sebagai Instrumen Keadilan dan Kepastian",
+  lead:
+    "Kami percaya bahwa advokasi yang bermartabat lahir dari pengabdian pada aturan hukum yang adil, bukan sekadar pencapaian hasil formal.",
+  paragraphs: [
+    "Filosofi Trusted Jurist berakar pada keyakinan bahwa profesi advokat memiliki tanggung jawab moral untuk memperkuat legitimasi sistem hukum. Setiap pendampingan hukum harus mempertimbangkan dampaknya terhadap kepastian hukum, perlindungan hak, dan kepercayaan publik terhadap institusi peradilan.",
+    "Dalam praktiknya, filosofi ini diwujudkan melalui advokasi yang terukur: riset hukum yang komprehensif, komunikasi yang transparan kepada klien, serta rekomendasi yang tidak disederhanakan demi kenyamanan jangka pendek.",
+    "Firma ini berpihak pada penegakan hukum yang konsisten dan berkeadilan — termasuk ketika menghadapi isu-isu sensitif yang menuntut keberanian profesional dan ketegasan berpihak pada hukum.",
+  ],
+};
+
+export const justiceIntegrityCommitment: EditorialSection = {
+  id: "justice-integrity",
+  eyebrow: "Komitmen",
+  title: "Keadilan dan Integritas sebagai Prinsip yang Tidak Ditawar",
+  lead:
+    "Integritas bukan slogan pemasaran, melainkan standar operasional yang mengatur setiap interaksi dengan klien, lawan hukum, dan institusi.",
+  paragraphs: [
+    "Trusted Jurist berkomitmen untuk tidak mengambil pendekatan yang mengorbankan prinsip hukum demi kepentingan sesaat. Kami menolak praktik advokasi yang bersifat oportunistik, tidak transparan, atau bertentangan dengan kode etik profesi.",
+    "Komitmen terhadap keadilan diartikan sebagai upaya memastikan bahwa setiap langkah hukum — baik dalam litigasi, investigasi, maupun advisory — mencerminkan pembelaan hak yang substantif dan proporsional.",
+    "Dalam isu publik dan korporasi yang kompleks, firma ini memegang teguh posisi independensi profesional. Rekomendasi hukum disampaikan berdasarkan analisis objektif, bukan tekanan non-hukum dari pihak manapun.",
+  ],
+};
+
+export const strategicLegalApproach = {
+  title: "Pendekatan Hukum Strategis",
+  eyebrow: "Metodologi",
+  lead:
+    "Setiap mandat hukum dirancang melalui kerangka analisis yang sistematis — dari pemetaan fakta hingga simulasi konsekuensi hukum.",
+  pillars: [
+    {
+      id: "diagnosis",
+      title: "Diagnosis Hukum Komprehensif",
+      description:
+        "Tahap awal setiap keterlibatan dimulai dengan pemetaan fakta, regulasi terkait, dan risiko hukum yang relevan — sebelum rekomendasi strategis disusun.",
+    },
+    {
+      id: "strategy",
+      title: "Perancangan Strategi Terukur",
+      description:
+        "Langkah hukum dirumuskan dengan skenario alternatif, timeline yang realistis, dan indikator keberhasilan yang dapat dipertanggungjawabkan kepada klien.",
+    },
+    {
+      id: "execution",
+      title: "Eksekusi dengan Dokumentasi Profesional",
+      description:
+        "Pelaksanaan advokasi didukung dokumentasi tertulis yang rapi — memastikan klien memahami progres, opsi, dan implikasi setiap keputusan.",
+    },
+    {
+      id: "governance",
+      title: "Orientasi Kepatuhan dan Tata Kelola",
+      description:
+        "Pada isu korporasi dan sektor regulasi, pendekatan kami mengintegrasikan aspek kepatuhan, pencegahan risiko, dan penguatan tata kelola jangka panjang.",
+    },
+  ] satisfies ApproachPillar[],
+};
+
+export const professionalEthicsStatement: EditorialSection = {
+  id: "ethics",
+  eyebrow: "Etika Profesi",
+  title: "Pernyataan Etika dan Standar Profesional",
+  lead:
+    "Seluruh advokat dan profesional hukum di Trusted Jurist terikat pada Kode Etik Advokat Indonesia dan prinsip independensi profesi.",
+  paragraphs: [
+    "Kami menjunjung tinggi kerahasiaan klien, menghindari konflik kepentingan, dan memastikan bahwa setiap informasi perkara dikelola dengan protokol akses yang terbatas dan akuntabel.",
+    "Komunikasi dengan klien dilakukan secara jujur mengenai prospek hukum — termasuk menyampaikan risiko dan keterbatasan yang wajar, tanpa janji hasil yang tidak dapat dipertanggungjawabkan secara profesional.",
+    "Firma ini tidak memberikan jaminan hasil perkara, tidak membuat pernyataan yang menyesatkan mengenai pengalaman yang tidak dapat diverifikasi, dan tidak menggunakan narasi promosi yang mengurangi martabat profesi advokat.",
+    "Setiap hubungan profesional dengan klien didasarkan pada surat kuasa, ruang lingkup mandat yang jelas, serta mekanisme penyelesaian sengketa yang mengutamakan penyelesaian sesuai hukum dan etika profesi.",
   ],
 };
 
@@ -303,6 +425,73 @@ export const practiceAreas: PracticeArea[] = [
       "Direksi atau pemegang saham yang membutuhkan dasar hukum sebelum keputusan investasi, litigasi, atau restrukturisasi.",
     legalOutput:
       "Formal legal opinion, executive summary risiko, dan rekomendasi langkah hukum berprioritas.",
+  },
+];
+
+/** Label ringkas untuk tautan bidang praktik di footer */
+export const footerPracticeLinks = practiceAreas.map((area) => ({
+  id: area.id,
+  href: `/practice-areas#${area.id}`,
+  label:
+    {
+      litigation: "Litigasi & Sengketa",
+      anticorruption: "Antikorupsi & Governance",
+      corporate: "Hukum Korporasi",
+      mining: "Pertambangan & SDA",
+      criminal: "Hukum Pidana",
+      "public-policy": "Kebijakan Publik",
+      customs: "Kepabeanan & Kepatuhan",
+      advisory: "Opini & Advisory Strategis",
+    }[area.id] ?? area.title,
+}));
+
+export const whyTrustedJuristSection = {
+  eyebrow: "Mengapa Trusted Jurist",
+  title: "Standar Layanan yang Membedakan Kami",
+  lead:
+    "Setiap mandat ditangani dengan pendekatan strategis, etika profesional yang teguh, dan komitmen pada kerahasiaan — didukung advokasi yang responsif dari awal konsultasi hingga penyelesaian.",
+};
+
+export const whyTrustedJuristPillars: WhyTrustedJuristPillar[] = [
+  {
+    id: "strategic-advisory",
+    title: "Advokasi Hukum Strategis",
+    titleEn: "Strategic Legal Advisory",
+    description:
+      "Analisis mendalam, pemetaan risiko, dan rekomendasi langkah yang terukur — bukan respons reaktif — agar keputusan hukum Anda selaras dengan tujuan bisnis dan regulasi.",
+    icon: "Compass",
+  },
+  {
+    id: "integrity",
+    title: "Pendekatan Berbasis Integritas",
+    titleEn: "Integrity-Driven Approach",
+    description:
+      "Setiap opini dan langkah advokasi berlandaskan hukum, fakta, dan etika profesi — independen, transparan, dan tanpa kompromi terhadap tekanan non-profesional.",
+    icon: "ShieldCheck",
+  },
+  {
+    id: "confidential",
+    title: "Konsultasi Rahasia",
+    titleEn: "Confidential Consultation",
+    description:
+      "Informasi klien dan dokumen perkara dikelola dengan protokol kerahasiaan ketat, akses terbatas, dan tanggung jawab profesional sejak konsultasi awal.",
+    icon: "Lock",
+  },
+  {
+    id: "advocacy",
+    title: "Advokasi Profesional",
+    titleEn: "Professional Advocacy",
+    description:
+      "Representasi di tingkat litigasi, negosiasi, maupun regulator dengan standar etika advokat, komunikasi jelas, dan dokumentasi proses yang dapat dipertanggungjawabkan.",
+    icon: "Gavel",
+  },
+  {
+    id: "responsive",
+    title: "Dukungan Hukum Responsif",
+    titleEn: "Responsive Legal Support",
+    description:
+      "Tim kami menjaga komunikasi yang tepat waktu dan koordinasi proaktif — sehingga Anda memperoleh kejelasan status, langkah berikutnya, dan pendampingan saat dibutuhkan.",
+    icon: "Headphones",
   },
 ];
 
