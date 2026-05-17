@@ -20,10 +20,10 @@ const sections: {
 
 export function FounderCredibility({ data, className }: FounderCredibilityProps) {
   return (
-    <div className={cn("mt-16 space-y-0", className)}>
+    <div className={cn("flow-editorial mt-12", className)}>
       {sections.map((section, index) => (
         <AnimatedReveal key={section.key} delay={index * 0.05}>
-          <div className="border-t border-border py-10 md:py-12">
+          <div>
             <h3 className={cn(t.eyebrow, "text-gold")}>{section.title}</h3>
             <ul className="mt-5 space-y-3">
               {data[section.key].map((item) => (

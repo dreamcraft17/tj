@@ -12,11 +12,11 @@ export function CredibilitySection() {
 
   return (
     <section
-      className="bg-navy text-cream section-pad-lg"
+      className="tone-navy section-pad-lg"
       aria-labelledby="credibility-heading"
     >
       <Container>
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
+        <div className="grid gap-24 lg:grid-cols-12 lg:gap-x-28">
           <motion.div
             className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start"
             initial={{ opacity: 0 }}
@@ -38,7 +38,7 @@ export function CredibilitySection() {
             </p>
           </motion.div>
 
-          <ul className="lg:col-span-7" role="list">
+          <ul className="flow-editorial lg:col-span-7" role="list">
             {credibilityPillars.map((pillar, index) => (
               <motion.li
                 key={pillar.id}
@@ -50,7 +50,6 @@ export function CredibilitySection() {
                   delay: prefersReducedMotion ? 0 : index * STAGGER.relaxed,
                   ease: EASE_PREMIUM,
                 }}
-                className="border-t border-cream/10 py-10 first:border-t-0 first:pt-0 last:pb-0 md:py-12"
               >
                 <h3 className={cn(t.h3, "text-cream")}>{pillar.title}</h3>
                 <p className={cn(t.body, "mt-4 max-w-lg text-cream/50")}>
@@ -61,9 +60,8 @@ export function CredibilitySection() {
           </ul>
         </div>
 
-        <p className={cn(t.caption, "mt-20 max-w-xl text-cream/35 lg:mt-28")}>
-          Standar ini mengikat setiap keterlibatan profesional — tanpa klaim
-          yang tidak dapat dipertanggungjawabkan secara etika advokat.
+        <p className={cn(t.caption, "mt-28 max-w-xl text-cream/35 lg:mt-40")}>
+          Berlaku pada setiap mandat — sesuai kode etik advokat.
         </p>
       </Container>
     </section>

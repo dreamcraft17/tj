@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
-import { MapPin, Mail, Phone, Clock, MessageCircle } from "lucide-react";
-import { Hero } from "@/components/Hero";
 import { ContactForm } from "@/components/ContactForm";
 import { Container } from "@/components/ui/Container";
-import { ButtonLink } from "@/components/ui/Button";
-import { CONTACT_CONFIG, contactInfo } from "@/lib/data";
+import {
+  CONTACT_CONFIG,
+  contactConsultation,
+  contactInfo,
+} from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
+import { type as t } from "@/lib/typography";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = createMetadata({
-  title: "Kontak",
+  title: "Konsultasi",
   description:
-    "Hubungi Trusted Jurist Law Firm di Sunter, Jakarta Timur. Jadwalkan konsultasi awal melalui formulir atau WhatsApp.",
+    "Permintaan konsultasi awal dengan Trusted Jurist — Sunter, Jakarta Timur. Formulir rahasia, email, atau WhatsApp.",
   path: "/contact",
 });
 
@@ -18,122 +21,128 @@ export default function ContactPage() {
   const whatsappUrl = `https://wa.me/${CONTACT_CONFIG.whatsapp.number}?text=${encodeURIComponent(
     CONTACT_CONFIG.whatsapp.defaultMessage,
   )}`;
+  const copy = contactConsultation;
 
   return (
-    <>
-      <Hero
-        headline="Hubungi Kami"
-        subheadline="Jadwalkan konsultasi awal dengan tim Trusted Jurist. Kami siap mendengarkan kebutuhan hukum Anda secara profesional."
-        compact
-      />
+    <div className="tone-cream">
+      <header className="pt-32 pb-20 md:pt-40 md:pb-28">
+        <Container size="narrow">
+          <p className={cn(t.colophon, "text-muted")}>{copy.eyebrow}</p>
+          <h1 className={cn(t.h1, "mt-6 max-w-[16ch] text-navy")}>
+            {copy.title}
+          </h1>
+          <p className={cn(t.lead, "mt-8 max-w-xl text-muted")}>{copy.lead}</p>
+        </Container>
+      </header>
 
-      <section className="py-20 md:py-28">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
-            <div className="lg:col-span-2">
-              <h2 className="font-serif text-2xl font-semibold text-navy">
-                Informasi Kantor
-              </h2>
-              <ul className="mt-8 space-y-6">
-                <ContactInfoItem
-                  icon={MapPin}
-                  label="Alamat"
-                  value={contactInfo.address}
-                />
-                <ContactInfoItem
-                  icon={Mail}
-                  label="Email"
-                  value={contactInfo.email}
-                  href={`mailto:${contactInfo.email}`}
-                />
-                <ContactInfoItem
-                  icon={Phone}
-                  label="Telepon"
-                  value={contactInfo.phone}
-                  href={`tel:${contactInfo.phoneTel}`}
-                />
-                <ContactInfoItem
-                  icon={Clock}
-                  label="Jam Operasional"
-                  value={contactInfo.hours}
-                />
-              </ul>
+      <section
+        className="section-pad-lg pb-0"
+        aria-labelledby="consultation-form-heading"
+      >
+        <Container size="narrow">
+          <div className="grid gap-20 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-0">
+            <aside className="lg:col-span-5 lg:pt-2">
+              <ConfidentialityBlock />
 
-              <div className="mt-10">
-                <ButtonLink href={whatsappUrl} variant="gold" className="w-full sm:w-auto">
-                  <MessageCircle className="size-4" aria-hidden />
-                  Chat via WhatsApp
-                </ButtonLink>
+              <div className="mt-20 lg:mt-24">
+                <p className={cn(t.caption, "text-muted")}>
+                  {copy.channels.title}
+                </p>
+                <dl className="mt-8 space-y-8">
+                  <ChannelRow label="Email">
+                    <a
+                      href={`mailto:${contactInfo.email}`}
+                      className={channelLinkClass}
+                    >
+                      {contactInfo.email}
+                    </a>
+                  </ChannelRow>
+                  <ChannelRow label="Telepon">
+                    <a
+                      href={`tel:${contactInfo.phoneTel}`}
+                      className={channelLinkClass}
+                    >
+                      {contactInfo.phone}
+                    </a>
+                  </ChannelRow>
+                  <ChannelRow label="WhatsApp">
+                    <a
+                      href={whatsappUrl}
+                      className={channelLinkClass}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Pesan singkat
+                    </a>
+                  </ChannelRow>
+                  <ChannelRow label="Kantor">
+                    <span className={cn(t.body, "text-navy")}>
+                      {contactInfo.address}
+                    </span>
+                  </ChannelRow>
+                  <ChannelRow label="Jam">
+                    <span className={cn(t.bodySm, "text-muted")}>
+                      {copy.channels.hoursNote}
+                    </span>
+                  </ChannelRow>
+                </dl>
               </div>
+            </aside>
 
-              <div
-                className="mt-10 flex aspect-[4/3] items-center justify-center rounded-sm border border-dashed border-border bg-cream-dark/50"
-                role="img"
-                aria-label={`Placeholder peta lokasi kantor di ${contactInfo.address}`}
+            <div className="lg:col-span-6 lg:col-start-7">
+              <div className="hairline mb-12 lg:mb-16" aria-hidden />
+
+              <h2
+                id="consultation-form-heading"
+                className={cn(t.h3, "text-navy")}
               >
-                <div className="px-4 text-center">
-                  <MapPin className="mx-auto size-8 text-gold/70" aria-hidden />
-                  <p className="mt-3 text-sm font-medium text-navy">
-                    Peta Lokasi
-                  </p>
-                  <p className="mt-1 text-xs text-muted">
-                    {CONTACT_CONFIG.mapNote}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-3">
-              <h2 className="font-serif text-2xl font-semibold text-navy">
-                Jadwalkan Konsultasi Awal
+                {copy.form.title}
               </h2>
-              <p className="mt-2 text-sm text-muted">
-                Isi formulir di bawah ini. Pengiriman bersifat simulasi untuk
-                demonstrasi antarmuka — integrasi backend dapat ditambahkan sesuai
-                kebutuhan produksi.
-              </p>
-              <div className="mt-8 rounded-sm border border-border bg-cream p-6 md:p-8">
-                <ContactForm />
+
+              <div className="mt-10 max-w-md">
+                <ContactForm variant="consultation" />
               </div>
             </div>
           </div>
         </Container>
       </section>
-    </>
+    </div>
   );
 }
 
-function ContactInfoItem({
-  icon: Icon,
-  label,
-  value,
-  href,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  value: string;
-  href?: string;
-}) {
+function ConfidentialityBlock() {
+  const { confidentiality } = contactConsultation;
+
   return (
-    <li className="flex gap-4">
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-navy/5 text-gold">
-        <Icon className="size-4" aria-hidden />
-      </span>
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
-          {label}
-        </p>
-        {href ? (
-          <a
-            href={href}
-            className="mt-1 block text-sm text-navy transition-colors hover:text-gold"
-          >
-            {value}
-          </a>
-        ) : (
-          <p className="mt-1 text-sm text-navy">{value}</p>
-        )}
+    <div>
+      <p className={cn(t.eyebrow, "text-gold")}>{confidentiality.title}</p>
+      <div className="mt-6 space-y-5">
+        {confidentiality.paragraphs.map((paragraph) => (
+          <p key={paragraph.slice(0, 24)} className={cn(t.longform, "text-muted")}>
+            {paragraph}
+          </p>
+        ))}
       </div>
-    </li>
+    </div>
   );
 }
+
+function ChannelRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <dt className={cn(t.caption, "text-muted")}>{label}</dt>
+      <dd className="mt-2">{children}</dd>
+    </div>
+  );
+}
+
+const channelLinkClass = cn(
+  t.body,
+  "text-navy underline decoration-navy/15 underline-offset-4 transition-colors hover:text-gold hover:decoration-gold/40",
+);

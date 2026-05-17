@@ -85,14 +85,50 @@ main h3 {
   outline-offset: 3px;
 }
 
+@utility section-pad-sm {
+  padding-top: clamp(3.5rem, 8vw, 5.5rem);
+  padding-bottom: clamp(3.5rem, 8vw, 5.5rem);
+}
+
 @utility section-pad {
-  padding-top: clamp(5rem, 12vw, 8.5rem);
-  padding-bottom: clamp(5rem, 12vw, 8.5rem);
+  padding-top: clamp(6.5rem, 14vw, 11rem);
+  padding-bottom: clamp(6.5rem, 14vw, 11rem);
 }
 
 @utility section-pad-lg {
-  padding-top: clamp(6rem, 14vw, 10rem);
-  padding-bottom: clamp(6rem, 14vw, 10rem);
+  padding-top: clamp(8rem, 17vw, 13rem);
+  padding-bottom: clamp(8rem, 17vw, 13rem);
+}
+
+/* Tonal bands — prefer over repetitive borders between sections */
+@utility tone-cream {
+  background-color: var(--cream);
+}
+
+@utility tone-warm {
+  background-color: color-mix(in srgb, var(--cream-dark) 32%, var(--cream));
+}
+
+@utility tone-paper {
+  background-color: color-mix(in srgb, var(--cream-dark) 18%, var(--cream));
+}
+
+@utility tone-navy {
+  background-color: var(--navy);
+  color: var(--cream);
+}
+
+/** Vertical rhythm for stacked editorial blocks (no dividers) */
+@utility flow-editorial {
+  & > * + * {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+}
+
+@utility flow-editorial-lg {
+  & > * + * {
+    margin-top: clamp(4rem, 8vw, 6rem);
+  }
 }
 
 @utility hairline {

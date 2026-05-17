@@ -17,6 +17,11 @@ export const type = {
   label: "type-label",
   measure: "type-measure",
   measureWide: "type-measure-wide",
+  statement: "type-statement",
+  principle: "type-principle",
+  deck: "type-deck",
+  longform: "type-longform",
+  colophon: "type-colophon",
 } as const;
 
 export function heading(

@@ -23,8 +23,7 @@ export function EditorialBlock({
         id={section.id}
         className={cn(
           "scroll-mt-28",
-          isInset &&
-            "rounded-sm border border-border bg-cream-dark/30 p-8 md:p-10 lg:p-12",
+          isInset && "tone-warm p-8 md:p-10 lg:p-12",
         )}
       >
         <header className={cn(isInset ? "" : "max-w-3xl")}>
@@ -37,10 +36,6 @@ export function EditorialBlock({
           >
             {section.title}
           </h2>
-          <div
-            className="mt-6 h-px w-12 bg-gradient-to-r from-gold/80 to-transparent"
-            aria-hidden
-          />
         </header>
 
         <EditorialProse

@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 export function AboutPreviewSection() {
   return (
-    <section className="section-pad" aria-labelledby="about-preview-heading">
+    <section className="tone-cream section-pad" aria-labelledby="about-preview-heading">
       <Container>
         <div className="grid gap-20 lg:grid-cols-12 lg:gap-x-20">
           <AnimatedReveal className="lg:col-span-5 lg:pt-4">
@@ -29,9 +29,9 @@ export function AboutPreviewSection() {
             <Link
               href="/about"
               className={cn(
-                "mt-12 inline-flex items-center gap-2 border-b border-navy/30 pb-0.5 text-navy",
+                "mt-12 inline-flex items-center gap-2 text-navy underline decoration-navy/25 underline-offset-4",
                 t.label,
-                "transition-colors hover:border-gold hover:text-gold",
+                "transition-colors hover:text-gold hover:decoration-gold/50",
               )}
             >
               Profil lengkap firma
@@ -48,7 +48,7 @@ export function AboutPreviewSection() {
             <p className={cn(t.body, "mt-10 max-w-lg text-muted")}>
               {firmProfile.paragraphs[0]}
             </p>
-            <dl className="mt-14 flex flex-wrap gap-x-14 gap-y-8 border-t border-border pt-10">
+            <dl className="mt-16 flex flex-wrap gap-x-14 gap-y-8 md:mt-20">
               <div>
                 <dt className={cn(t.eyebrow, "text-muted")}>Diluncurkan</dt>
                 <dd className={cn(t.body, "mt-2 text-navy")}>26 Juni 2025</dd>

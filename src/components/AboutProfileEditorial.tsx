@@ -19,17 +19,13 @@ export function AboutProfileEditorial() {
   return (
     <>
       {/* Opening editorial */}
-      <section className="py-24 md:py-32 lg:py-36">
+      <section className="tone-cream section-pad">
         <Container size="narrow">
           <AnimatedReveal>
             <p className={cn(t.eyebrow, "text-gold")}>Profil Firma</p>
             <h1 className={cn(t.h1, "mt-5 text-navy")}>
               {firmProfile.title}
             </h1>
-            <div
-              className="mt-8 h-px w-16 bg-gradient-to-r from-gold to-transparent"
-              aria-hidden
-            />
           </AnimatedReveal>
 
           <EditorialProse
@@ -41,21 +37,21 @@ export function AboutProfileEditorial() {
       </section>
 
       {/* Philosophy — full-bleed inset */}
-      <section className="border-y border-border bg-cream-dark/40 py-24 md:py-32">
+      <section className="tone-warm section-pad">
         <Container size="narrow">
           <EditorialBlock section={firmPhilosophy} variant="inset" />
         </Container>
       </section>
 
       {/* Justice & integrity */}
-      <section className="py-24 md:py-32">
+      <section className="tone-cream section-pad">
         <Container size="narrow">
           <EditorialBlock section={justiceIntegrityCommitment} index={1} />
         </Container>
       </section>
 
       {/* Strategic approach */}
-      <section className="border-t border-border bg-cream py-24 md:py-32">
+      <section className="tone-paper section-pad">
         <Container size="narrow">
           <ApproachPillars
             eyebrow={strategicLegalApproach.eyebrow}
@@ -67,7 +63,7 @@ export function AboutProfileEditorial() {
       </section>
 
       {/* Professional ethics */}
-      <section className="border-y border-border bg-navy py-24 text-cream md:py-32">
+      <section className="tone-navy section-pad text-cream">
         <Container size="narrow">
           <AnimatedReveal>
             <article id={professionalEthicsStatement.id} className="scroll-mt-28">
@@ -80,11 +76,6 @@ export function AboutProfileEditorial() {
               <p className={cn(t.lead, "mt-6 text-cream/85")}>
                 {professionalEthicsStatement.lead}
               </p>
-              <div
-                className="mt-6 h-px w-12 bg-gradient-to-r from-gold/80 to-transparent"
-                aria-hidden
-              />
-
               <div className="mt-10 space-y-6">
                 {professionalEthicsStatement.paragraphs.map((paragraph) => (
                   <p
@@ -101,7 +92,7 @@ export function AboutProfileEditorial() {
       </section>
 
       {/* Vision & mission — editorial two-column */}
-      <section className="py-24 md:py-32">
+      <section className="tone-cream section-pad">
         <Container>
           <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
             <AnimatedReveal>
@@ -121,16 +112,9 @@ export function AboutProfileEditorial() {
                 <h2 className={cn(t.h3, "mt-4 text-navy")}>
                   {mission.title}
                 </h2>
-                <ul className="mt-6 space-y-4">
+                <ul className="mt-8 space-y-5">
                   {mission.items.map((item) => (
-                    <li
-                      key={item}
-                      className={cn(t.body, "flex gap-4 text-muted max-w-none")}
-                    >
-                      <span
-                        className="mt-2.5 size-1 shrink-0 rounded-full bg-gold"
-                        aria-hidden
-                      />
+                    <li key={item} className={cn(t.body, "text-muted max-w-none")}>
                       {item}
                     </li>
                   ))}

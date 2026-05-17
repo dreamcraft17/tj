@@ -209,7 +209,7 @@ export function Navbar() {
               role="dialog"
               aria-modal
               aria-label="Menu navigasi"
-              className="absolute left-0 right-0 top-full z-50 overflow-hidden border-b border-border/80 bg-cream/95 shadow-[0_24px_48px_rgba(15,26,46,0.12)] backdrop-blur-xl backdrop-saturate-150 lg:hidden"
+              className="absolute left-0 right-0 top-full z-50 overflow-hidden border-b border-border/60 bg-cream/98 backdrop-blur-md lg:hidden"
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -245,7 +245,7 @@ export function Navbar() {
                           href={item.href}
                           onClick={() => setOpen(false)}
                           className={cn(
-                            "flex items-center justify-between border-b border-border/50 py-4 text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-300",
+                            "flex items-center justify-between py-4 text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-300",
                             active
                               ? "text-gold"
                               : "text-navy/80 hover:text-navy",
@@ -254,7 +254,7 @@ export function Navbar() {
                           {item.label}
                           {active && (
                             <span
-                              className="size-1.5 rounded-full bg-gold shadow-[0_0_6px_rgba(184,134,11,0.5)]"
+                              className="size-1.5 rounded-full bg-gold"
                               aria-hidden
                             />
                           )}
@@ -268,7 +268,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.35, ease: easePremium }}
-                  className="mt-8 border-t border-border pt-8"
+                  className="mt-10 pt-6"
                 >
                   <Link
                     href="/contact"

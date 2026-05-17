@@ -20,17 +20,17 @@ export default function TeamPage() {
   return (
     <>
       <Hero
-        headline="Tim Profesional"
-        subheadline="Advokat dan profesional hukum yang berdedikasi pada keunggulan, integritas, dan pendampingan klien yang strategis."
+        headline="Tim"
+        subheadline="Advokat dan profesional hukum — litigasi, antikorupsi, dan advisory publik–korporasi."
         compact
       />
 
-      <section className="py-20 md:py-28">
-        <Container>
+      <section className="section-pad">
+        <Container size="narrow">
           <SectionHeader
             eyebrow="Kepemimpinan"
             title="Managing Partner"
-            description="Pemimpin firma yang mengarahkan visi reformasi hukum dan standar advokasi berintegritas."
+            description="Pendiri firma. Mengarahkan praktik pada reformasi hukum, antikorupsi, dan litigasi."
           />
           <div className="mx-auto max-w-2xl">
             <TeamCard member={managingPartner} index={0} />
@@ -38,12 +38,12 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      <section className="border-t border-border bg-cream-dark/30 py-20 md:py-28">
+      <section className="tone-paper section-pad">
         <Container size="narrow">
           <SectionHeader
             eyebrow="Profil Kepemimpinan"
-            title="Kredibilitas Profesional"
-            description="Informasi berikut dapat disesuaikan dengan dokumentasi resmi firma sebelum publikasi website."
+            title="Profil kepemimpinan"
+            description="Disesuaikan dengan dokumentasi resmi firma sebelum publikasi."
             align="center"
           />
           <FounderCredibility data={founderCredibility} />
@@ -58,7 +58,7 @@ export default function TeamPage() {
             description="Trusted Jurist memperluas tim advokat secara bertahap. Posisi di bawah ini belum diisi dan akan diumumkan resmi — tanpa nama sementara."
             align="center"
           />
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="flow-editorial mt-4 md:grid md:grid-cols-3 md:gap-x-12">
             {teamRoleSlots.map((slot, i) => (
               <TeamRoleSlot key={slot.id} slot={slot} index={i} />
             ))}
@@ -68,8 +68,8 @@ export default function TeamPage() {
 
       <CTASection
         title="Berminat Bergabung?"
-        description="Trusted Jurist membuka kesempatan bagi profesional hukum yang berkomitmen pada integritas dan keunggulan kerja. Hubungi kami untuk informasi lebih lanjut."
-        primaryLabel="Hubungi Kami"
+        description="Kesempatan bagi advokat yang memenuhi standar firma. Hubungi untuk informasi."
+        primaryLabel="Kontak"
       />
     </>
   );

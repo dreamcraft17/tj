@@ -17,7 +17,7 @@ export function InsightCard({ article, index = 0 }: InsightCardProps) {
   return (
     <AnimatedReveal delay={index * 0.06}>
       <article
-        className="border-t border-border py-10 md:py-12"
+        className="py-16 md:py-20"
         aria-label={`${article.title} — ${statusLabel[article.status]}`}
       >
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">

@@ -10,7 +10,7 @@ type ValueCardProps = {
 export function ValueCard({ value }: ValueCardProps) {
   return (
     <AnimatedReveal>
-      <article className="border-t border-border py-8">
+      <article>
         <h3 className={cn(t.h4, "text-navy")}>{value.title}</h3>
         <p className={cn(t.bodySm, "mt-3 text-muted")}>{value.description}</p>
       </article>

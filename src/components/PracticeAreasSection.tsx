@@ -20,13 +20,13 @@ export function PracticeAreasSection({
   areas,
   eyebrow = "Bidang praktik",
   title = "Keahlian hukum yang mendalam",
-  description = "Pendampingan litigasi, regulasi, dan advisory strategis — dengan ruang lingkup yang jelas dan output yang terukur.",
+  description = "Litigasi, regulasi, dan advisory — ruang lingkup dan output yang terdefinisi.",
   showViewAll = true,
   className,
 }: PracticeAreasSectionProps) {
   return (
     <section
-      className={cn("section-pad", className)}
+      className={cn("tone-warm section-pad", className)}
       aria-labelledby="practice-areas-section-heading"
     >
       <Container>
@@ -40,7 +40,7 @@ export function PracticeAreasSection({
           />
         </div>
 
-        <div className="mt-20 md:mt-24">
+        <div className="flow-editorial mt-24 md:mt-32">
           {areas.map((area, i) => (
             <PracticeAreaCard
               key={area.id}
@@ -52,7 +52,7 @@ export function PracticeAreasSection({
         </div>
 
         {showViewAll && (
-          <div className="mt-16 border-t border-border pt-12 md:mt-20">
+          <div className="mt-20 md:mt-24">
             <Link
               href="/practice-areas"
               className={cn(

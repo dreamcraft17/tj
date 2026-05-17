@@ -1,9 +1,9 @@
 export const SITE_CONFIG = {
   name: "Trusted Jurist Law Firm",
   shortName: "Trusted Jurist",
-  tagline: "Hukum yang Berintegritas. Advokasi yang Dapat Dipercaya.",
+  tagline: "Hukum berpihak. Advokasi terukur.",
   description:
-    "Trusted Jurist Law Firm — firma hukum profesional di Jakarta yang berfokus pada reformasi hukum, antikorupsi, dan penegakan hukum dengan integritas tinggi.",
+    "Firma hukum di Jakarta — litigasi, antikorupsi, hukum korporasi, dan regulasi sektor.",
   url: "https://trustedjurist.co.id",
   locale: "id_ID",
   launchedDate: "2025-06-26",
@@ -11,16 +11,15 @@ export const SITE_CONFIG = {
 } as const;
 
 export const FOOTER_DESCRIPTION =
-  "Trusted Jurist Law Firm hadir sebagai mitra hukum profesional yang menjunjung integritas, keadilan, dan kepastian hukum.";
+  "Firma hukum di Sunter, Jakarta Timur. Beroperasi sejak 26 Juni 2025.";
 
 export const CTA_LABELS = {
-  primary: "Jadwalkan Konsultasi Awal",
+  primary: "Konsultasi",
   nav: "Konsultasi",
 } as const;
 
 export const FOOTER_LEGAL = {
   disclaimer:
-    "Informasi pada website ini bersifat umum dan tidak merupakan nasihat hukum, opini hukum, atau hubungan advokat-klien. Untuk pendampingan resmi, hubungi firma dan lakukan konsultasi langsung. Trusted Jurist Law Firm tidak menjamin hasil perkara melalui materi yang dipublikasikan di website ini.",
-  hoursNote:
-    "Jam operasional berikut bersifat indikatif; konfirmasi janji temu melalui kontak resmi firma.",
+    "Materi di situs ini bersifat informasi umum, bukan nasihat hukum atau hubungan advokat–klien. Untuk pendampingan resmi, hubungi firma secara langsung.",
+  hoursNote: "Jam operasional indikatif. Konfirmasi janji temu melalui kontak resmi.",
 } as const;

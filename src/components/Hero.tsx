@@ -1,36 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { CTA_LABELS } from "@/lib/constants";
+import { SITE_CONFIG } from "@/lib/constants";
 import { DURATION, EASE_PREMIUM } from "@/lib/motion";
 import { type as t } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
-const principles = [
-  "Integritas",
-  "Keadilan",
-  "Profesionalisme",
-  "Advokasi strategis",
-] as const;
+const DEFAULT_PRINCIPLE = "Kepastian hukum mengikat setiap mandat";
 
 type HeroProps = {
   headline: string;
   subheadline: string;
+  legalPrinciple?: string;
+  editorialNote?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
+  colophon?: string;
   compact?: boolean;
 };
 
 export function Hero({
   headline,
   subheadline,
-  primaryCta = { label: CTA_LABELS.primary, href: "/contact" },
-  secondaryCta = { label: "Bidang praktik", href: "/practice-areas" },
+  legalPrinciple = DEFAULT_PRINCIPLE,
+  editorialNote,
+  primaryCta,
+  secondaryCta,
+  colophon,
   compact = false,
 }: HeroProps) {
+  const year = new Date(SITE_CONFIG.launchedDate).getFullYear();
+  const mastheadRight = colophon ?? `Jakarta · ${year}`;
+  const showLinks = !compact && (primaryCta || secondaryCta);
+
   return (
     <section
       className="relative bg-navy text-cream"
@@ -39,100 +43,109 @@ export function Hero({
       <Container
         className={cn(
           "relative",
-          compact ? "py-32 md:py-36" : "py-36 md:py-44 lg:py-52",
+          compact
+            ? "py-32 md:py-40 lg:py-44"
+            : "py-44 md:py-52 lg:py-[min(32vh,16rem)]",
         )}
       >
-        <div className="grid lg:grid-cols-12 lg:gap-x-16">
-          <motion.div
-            className="lg:col-span-8 lg:col-start-1"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: DURATION.slow, ease: EASE_PREMIUM }}
-          >
-            <p className={cn(t.eyebrow, "text-cream/50")}>
-              Trusted Jurist · Jakarta
-            </p>
+        <motion.header
+          className="flex flex-col gap-3 pb-2 sm:flex-row sm:items-end sm:justify-between"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: DURATION.slow, ease: EASE_PREMIUM }}
+        >
+          <p className={cn(t.colophon, "text-cream/40")}>
+            {SITE_CONFIG.shortName} Law Firm
+          </p>
+          <p className={cn(t.colophon, "text-cream/35 sm:text-right")}>
+            {mastheadRight}
+          </p>
+        </motion.header>
 
-            <h1
-              id="hero-heading"
+        <motion.div
+          className={cn(
+            "mt-24 md:mt-28 lg:mt-32",
+            compact ? "max-w-3xl" : "max-w-[52rem]",
+          )}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            duration: DURATION.slow,
+            delay: 0.08,
+            ease: EASE_PREMIUM,
+          }}
+        >
+          <p className={cn(t.principle, "text-cream/55")}>{legalPrinciple}</p>
+
+          <h1
+            id="hero-heading"
+            className={cn(
+              t.display,
+              "mt-8 text-cream md:mt-10",
+              compact ? "max-w-[18ch]" : "max-w-[16ch] md:max-w-[14ch]",
+            )}
+          >
+            {headline}
+          </h1>
+
+          <p
+            className={cn(
+              t.deck,
+              "mt-10 max-w-2xl text-cream/75 md:mt-12",
+              compact && "mt-8",
+            )}
+          >
+            {subheadline}
+          </p>
+
+          {editorialNote && !compact && (
+            <p
               className={cn(
-                t.display,
-                "mt-10 max-w-[14ch] text-cream lg:mt-12",
+                t.longform,
+                "mt-8 max-w-md text-cream/45 md:mt-10 lg:ml-[12%] lg:max-w-sm",
               )}
             >
-              {headline}
-            </h1>
-          </motion.div>
+              {editorialNote}
+            </p>
+          )}
+        </motion.div>
 
-          <motion.div
-            className={cn(
-              "mt-14 lg:col-span-4 lg:col-start-9 lg:mt-24",
-              compact && "mt-10 lg:mt-16",
-            )}
+        {showLinks && (
+          <motion.footer
+            className="mt-28 flex flex-wrap items-baseline gap-x-12 gap-y-2 md:mt-36"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
               duration: DURATION.slow,
-              delay: 0.15,
+              delay: 0.2,
               ease: EASE_PREMIUM,
             }}
           >
-            <div className="hairline-gold max-w-[3rem]" aria-hidden />
-
-            <p
-              className={cn(
-                t.lead,
-                "mt-8 max-w-md text-cream/65",
-              )}
-            >
-              {subheadline}
-            </p>
-
-            {!compact && (
-              <>
-                <p className="mt-10 text-cream/40">
-                  {principles.map((item, i) => (
-                    <span key={item}>
-                      {i > 0 && (
-                        <span className="mx-2.5 text-cream/20" aria-hidden>
-                          ·
-                        </span>
-                      )}
-                      <span className={cn(t.caption)}>{item}</span>
-                    </span>
-                  ))}
-                </p>
-
-                <div className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-10">
-                  <Link
-                    href={primaryCta.href}
-                    className={cn(
-                      "inline-flex items-center gap-2 border-b border-gold pb-1 text-cream",
-                      t.label,
-                      "transition-colors hover:border-cream hover:text-cream",
-                    )}
-                  >
-                    {primaryCta.label}
-                    <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
-                  </Link>
-                  <Link
-                    href={secondaryCta.href}
-                    className={cn(
-                      "inline-flex items-center gap-2 text-cream/55",
-                      t.label,
-                      "transition-colors hover:text-cream",
-                    )}
-                  >
-                    {secondaryCta.label}
-                  </Link>
-                </div>
-              </>
+            {secondaryCta && (
+              <Link
+                href={secondaryCta.href}
+                className={cn(
+                  t.colophon,
+                  "text-cream/40 transition-colors hover:text-cream/70",
+                )}
+              >
+                {secondaryCta.label}
+              </Link>
             )}
-          </motion.div>
-        </div>
+            {primaryCta && (
+              <Link
+                href={primaryCta.href}
+                className={cn(
+                  t.colophon,
+                  "text-cream/50 transition-colors hover:text-cream",
+                )}
+              >
+                {primaryCta.label}
+              </Link>
+            )}
+          </motion.footer>
+        )}
       </Container>
-
-      <div className="hairline-gold opacity-30" aria-hidden />
     </section>
   );
 }

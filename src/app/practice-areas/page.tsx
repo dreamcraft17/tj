@@ -19,22 +19,22 @@ export default function PracticeAreasPage() {
     <>
       <Hero
         headline="Bidang Praktik"
-        subheadline="Keahlian multidisiplin untuk menangani persoalan hukum kompleks — dari ruang sidang hingga ruang rapat direksi."
+        subheadline="Delapan bidang praktik — dari litigasi hingga opini tingkat direksi."
         compact
       />
 
-      <section className="py-24 md:py-32 lg:py-36">
+      <section className="section-pad-lg">
         <Container>
           <SectionHeader
-            eyebrow="Layanan Hukum"
-            title="Portofolio Keahlian & Ruang Lingkup"
+            eyebrow="Praktik"
+            title="Ruang lingkup & output"
             titleId="practice-portfolio-heading"
-            description="Setiap bidang praktik disusun dengan deskripsi layanan, cakupan kerja, profil kebutuhan klien, dan output hukum yang dapat diharapkan — demi transparansi dan kepastian sejak awal keterlibatan."
+            description="Setiap bidang mencakup cakupan kerja, profil mandat, dan output hukum yang terdefinisi."
             align="center"
             className="mx-auto max-w-3xl"
           />
 
-          <div className="mt-16 space-y-12 md:mt-20 md:space-y-14 lg:space-y-16">
+          <div className="flow-editorial-lg mt-20 md:mt-28">
             {practiceAreas.map((area, i) => (
               <PracticeAreaCard
                 key={area.id}
@@ -49,8 +49,8 @@ export default function PracticeAreasPage() {
       </section>
 
       <CTASection
-        title="Diskusikan Kebutuhan Hukum Anda"
-        description="Setiap persoalan hukum memiliki konteks unik. Jadwalkan konsultasi awal dengan tim Trusted Jurist untuk pemetaan risiko dan langkah strategis."
+        title="Perlu pendampingan?"
+        description="Konsultasi awal untuk diagnosis masalah dan arah langkah."
       />
     </>
   );

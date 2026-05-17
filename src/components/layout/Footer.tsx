@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
 import {
   CONTACT_CONFIG,
   contactInfo,
@@ -39,7 +38,7 @@ export function Footer() {
   return (
     <footer className="bg-navy text-cream">
       <Container className="section-pad">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-x-16">
+        <div className="grid gap-20 lg:grid-cols-12 lg:gap-x-20">
           <div className="lg:col-span-5">
             <Link href="/" className="inline-block">
               <p className={cn(t.h3, "text-cream")}>Trusted Jurist</p>
@@ -51,9 +50,9 @@ export function Footer() {
             <Link
               href="/contact"
               className={cn(
-                "mt-10 inline-block border-b border-cream/30 pb-0.5 text-cream",
+                "mt-10 inline-block text-cream underline decoration-cream/30 underline-offset-4",
                 t.label,
-                "transition-colors hover:border-gold hover:text-gold",
+                "transition-colors hover:decoration-gold hover:text-gold",
               )}
             >
               Jadwalkan konsultasi
@@ -91,23 +90,13 @@ export function Footer() {
 
             <div>
               <FooterHeading>Kantor</FooterHeading>
-              <ul className="mt-5 space-y-5" role="list">
-                <li className="flex gap-3">
-                  <MapPin
-                    className="mt-1 size-4 shrink-0 text-cream/35"
-                    strokeWidth={1.25}
-                    aria-hidden
-                  />
+              <ul className="mt-6 space-y-4" role="list">
+                <li>
                   <span className={cn(t.bodySm, "text-cream/60")}>
                     {CONTACT_CONFIG.address.display}
                   </span>
                 </li>
-                <li className="flex gap-3">
-                  <Mail
-                    className="mt-1 size-4 shrink-0 text-cream/35"
-                    strokeWidth={1.25}
-                    aria-hidden
-                  />
+                <li>
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(t.bodySm, "text-cream/60 hover:text-gold")}
@@ -115,12 +104,7 @@ export function Footer() {
                     {contactInfo.email}
                   </a>
                 </li>
-                <li className="flex gap-3">
-                  <Phone
-                    className="mt-1 size-4 shrink-0 text-cream/35"
-                    strokeWidth={1.25}
-                    aria-hidden
-                  />
+                <li>
                   <a
                     href={`tel:${contactInfo.phoneTel}`}
                     className={cn(t.bodySm, "text-cream/60 hover:text-gold")}
@@ -136,7 +120,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 border-t border-cream/10 pt-10 md:mt-28">
+        <div className="mt-28 md:mt-40">
           <p className={cn(t.caption, "max-w-3xl text-cream/40")}>
             {FOOTER_LEGAL.disclaimer}
           </p>

@@ -6,6 +6,8 @@ import { CTASection } from "@/components/CTASection";
 import { Container } from "@/components/ui/Container";
 import { insights } from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
+import { type as t } from "@/lib/typography";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = createMetadata({
   title: "Wawasan",
@@ -19,23 +21,22 @@ export default function InsightsPage() {
     <>
       <Hero
         headline="Wawasan Hukum"
-        subheadline="Ruang perspektif editorial mengenai penegakan hukum, governance, dan regulasi sektor — dalam tahap penyusunan."
+        subheadline="Perspektif editorial tentang penegakan hukum, tata kelola, dan regulasi sektor — dalam penyusunan."
         compact
       />
 
-      <section className="py-20 md:py-28">
-        <Container>
+      <section className="section-pad-lg">
+        <Container size="narrow">
           <SectionHeader
             eyebrow="Editorial"
             title="Daftar Materi dalam Penyusunan"
-            description="Seluruh artikel di halaman ini ditandai sebagai draf editorial atau segera hadir. Konten final akan dipublikasikan setelah proses review internal."
-            align="center"
+            description="Draf editorial atau segera hadir. Publikasi setelah review internal."
           />
-          <div className="mb-10 rounded-sm border border-gold/30 bg-gold/5 px-5 py-4 text-center text-sm text-muted">
-            Tidak ada artikel yang dipublikasikan pada tahap ini. Informasi di
-            bawah ini bersifat indikatif topik editorial, bukan publikasi resmi.
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <p className={cn(t.caption, "mt-12 max-w-xl text-muted")}>
+            Tidak ada artikel yang dipublikasikan pada tahap ini. Topik di bawah
+            bersifat indikatif, bukan publikasi resmi.
+          </p>
+          <div className="flow-editorial-lg mt-16 md:mt-24">
             {insights.map((article, i) => (
               <InsightCard key={article.id} article={article} index={i} />
             ))}

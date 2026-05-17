@@ -18,7 +18,7 @@ type PracticeAreaCardProps = {
 function ScopeBlock({ label, text }: { label: string; text: string }) {
   return (
     <div className="max-w-md">
-      <p className={cn(t.eyebrow, "text-gold")}>{label}</p>
+      <p className={cn(t.caption, "text-muted")}>{label}</p>
       <p className={cn(t.bodySm, "mt-3 text-muted")}>{text}</p>
     </div>
   );
@@ -31,7 +31,6 @@ export function PracticeAreaCard({
   showConsultLink = true,
 }: PracticeAreaCardProps) {
   const isEditorial = variant === "editorial";
-  const displayIndex = String(index + 1).padStart(2, "0");
   const offset = index % 2 === 1;
 
   if (!isEditorial) {
@@ -39,16 +38,13 @@ export function PracticeAreaCard({
       <AnimatedReveal delay={index * 0.06}>
         <article
           className={cn(
-            "group border-t border-border py-12 md:py-14",
+            "group py-16 md:py-20",
             offset && "md:pl-12 lg:pl-20",
           )}
         >
-          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-12">
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-16">
             <div className="md:max-w-xl">
-              <p className={cn(t.caption, "tabular-nums text-muted")}>
-                {displayIndex}
-              </p>
-              <h3 className={cn(t.h3, "mt-4 text-navy")}>{area.title}</h3>
+              <h3 className={cn(t.h3, "text-navy")}>{area.title}</h3>
               <p className={cn(t.body, "mt-5 text-muted")}>{area.description}</p>
             </div>
             <div className="md:w-72 md:shrink-0 md:pt-8">
@@ -76,17 +72,14 @@ export function PracticeAreaCard({
     <AnimatedReveal delay={index * 0.07}>
       <article
         id={area.id}
-        className="scroll-mt-32 border-t border-border py-16 md:py-20"
+        className="scroll-mt-32 py-24 md:py-32"
       >
-        <p className={cn(t.caption, "tabular-nums text-muted")}>
-          {displayIndex}
-        </p>
-        <h3 className={cn(t.h2, "mt-5 max-w-2xl text-navy")}>{area.title}</h3>
+        <h3 className={cn(t.h2, "max-w-2xl text-navy")}>{area.title}</h3>
         <p className={cn(t.lead, "mt-6 max-w-2xl text-muted")}>
           {area.description}
         </p>
 
-        <div className="mt-14 grid gap-12 md:grid-cols-3 md:gap-10">
+        <div className="mt-16 grid gap-14 md:grid-cols-3 md:gap-12 lg:gap-16">
           <ScopeBlock label="Ruang lingkup" text={area.scope} />
           <ScopeBlock label="Kebutuhan klien" text={area.clientNeeds} />
           <ScopeBlock label="Output hukum" text={area.legalOutput} />
@@ -96,7 +89,7 @@ export function PracticeAreaCard({
           <Link
             href="/contact"
             className={cn(
-              "mt-12 inline-flex items-center gap-2 border-b border-gold pb-0.5 text-gold",
+              "mt-12 inline-flex items-center gap-2 text-gold underline decoration-gold/40 underline-offset-4",
               t.label,
               cnInteractive.link,
             )}

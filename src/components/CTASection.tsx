@@ -14,26 +14,26 @@ type CTASectionProps = {
 };
 
 export function CTASection({
-  title = "Butuh pendampingan hukum profesional?",
-  description = "Jadwalkan konsultasi awal untuk membahas kebutuhan hukum Anda dan langkah strategis berikutnya.",
+  title = "Perlu pendampingan hukum?",
+  description = "Konsultasi awal untuk diagnosis masalah dan arah langkah.",
   primaryLabel = CTA_LABELS.primary,
   primaryHref = "/contact",
 }: CTASectionProps) {
   return (
-    <section className="border-t border-border bg-cream" aria-labelledby="cta-heading">
-      <Container className="section-pad">
+    <section className="tone-warm section-pad-lg" aria-labelledby="cta-heading">
+      <Container>
         <AnimatedReveal>
           <div className="max-w-2xl">
             <h2 id="cta-heading" className={cn(t.h1, "text-navy")}>
               {title}
             </h2>
-            <p className={cn(t.lead, "mt-7 text-muted")}>{description}</p>
+            <p className={cn(t.lead, "mt-9 text-muted")}>{description}</p>
             <Link
               href={primaryHref}
               className={cn(
-                "mt-10 inline-flex items-center gap-2 border-b border-navy pb-0.5 text-navy",
+                "mt-12 inline-flex items-center gap-2 text-navy underline decoration-navy/25 underline-offset-4",
                 t.label,
-                "transition-colors hover:border-gold hover:text-gold",
+                "transition-colors hover:text-gold hover:decoration-gold/50",
               )}
             >
               {primaryLabel}

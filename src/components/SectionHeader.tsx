@@ -37,7 +37,7 @@ export function SectionHeader({
         id={titleId}
         className={cn(
           titleAs === "h1" ? t.h1 : t.h2,
-          "mt-5 text-navy",
+          "mt-6 text-navy",
           align === "center" && "mx-auto type-measure-wide",
         )}
       >
@@ -47,7 +47,7 @@ export function SectionHeader({
         <p
           className={cn(
             t.lead,
-            "mt-7 text-muted",
+            "mt-9 text-muted",
             align === "center" ? "mx-auto type-measure" : "max-w-xl",
           )}
         >
