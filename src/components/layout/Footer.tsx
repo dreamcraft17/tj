@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   CONTACT_CONFIG,
   contactInfo,
+  footerLegalLinks,
   footerPracticeLinks,
   navigation,
 } from "@/lib/data";
@@ -124,11 +125,21 @@ export function Footer() {
           <p className={cn(t.caption, "max-w-3xl text-cream/40")}>
             {FOOTER_LEGAL.disclaimer}
           </p>
-          <div className="mt-8 flex flex-col gap-2 md:flex-row md:justify-between">
+          <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <p className={cn(t.caption, "text-cream/45")}>
-              © {currentYear} {SITE_CONFIG.name}
+              © {currentYear} {SITE_CONFIG.shortName} Law Firm.{" "}
+              {FOOTER_LEGAL.copyright}
             </p>
-            <p className={cn(t.caption, "text-cream/35")}>{SITE_CONFIG.tagline}</p>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2" role="list">
+              {footerLegalLinks.map((link) => (
+                <li key={link.href}>
+                  <FooterLink href={link.href}>{link.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
+            <p className={cn(t.caption, "text-cream/35 md:text-right")}>
+              {SITE_CONFIG.tagline}
+            </p>
           </div>
         </div>
       </Container>

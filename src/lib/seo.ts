@@ -36,11 +36,20 @@ export function createMetadata({
       siteName: SITE_CONFIG.name,
       title: fullTitle,
       description,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: SITE_CONFIG.name,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      images: ["/opengraph-image"],
     },
     robots: {
       index: true,

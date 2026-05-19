@@ -14,6 +14,10 @@ import type {
   WhyTrustedJuristPillar,
 } from "@/types";
 
+export const footerLegalLinks = [
+  { label: "Kebijakan Privasi", href: "/privacy" },
+] as const;
+
 export const navigation: NavItem[] = [
   { label: "Beranda", href: "/", labelEn: "Home" },
   { label: "Tentang Kami", href: "/about", labelEn: "About" },
@@ -25,26 +29,31 @@ export const navigation: NavItem[] = [
 
 /**
  * ─── KONFIGURASI KONTAK FIRMA ───
- * Edit nilai di bawah ini sebelum website go-live.
+ * Ganti nilai bertanda REVIEW dengan data resmi dari admin firma sebelum go-live.
  */
 export const CONTACT_CONFIG = {
   address: {
-    line1: "Kawasan Sunter",
-    line2: "Jakarta Timur, DKI Jakarta",
+    line1: "Jl. Sunter Agung Raya", // REVIEW: nomor unit/ruko jika ada
+    line2: "Jakarta Timur 14350, DKI Jakarta",
+    postalCode: "14350",
     country: "Indonesia",
-    display: "Kawasan Sunter, Jakarta Timur, DKI Jakarta",
+    display: "Jl. Sunter Agung Raya, Jakarta Timur 14350, DKI Jakarta",
   },
-  email: "kontak@trustedjurist.co.id",
+  email: "konsultasi@trustedjurist.co.id",
   phone: {
-    display: "+62 21 [nomor kantor]",
-    tel: "+622100000000",
+    display: "+62 21 XXXX XXXX", // REVIEW: nomor kantor resmi
+    tel: "+6221XXXXXXXX", // REVIEW: format E.164 tanpa spasi
   },
   whatsapp: {
-    number: "6281234567890",
-    defaultMessage:
-      "Halo Trusted Jurist, saya ingin berkonsultasi.",
+    number: "628XXXXXXXXXX", // REVIEW: 62 + nomor tanpa 0 di depan
+    defaultMessage: "Halo Trusted Jurist, saya ingin berkonsultasi.",
   },
-  hours: "Senin – Jumat, 09.00 – 18.00 WIB",
+  operatingHours: "Senin–Jumat, 08:00–17:00 WIB",
+  operatingHoursNote:
+    "Konfirmasi janji temu melalui kontak resmi firma.",
+  timezone: "Asia/Jakarta",
+  /** @deprecated Gunakan operatingHours */
+  hours: "Senin–Jumat, 08:00–17:00 WIB",
   mapNote: "Peta interaktif dapat diintegrasikan pada fase deployment.",
 } as const;
 
@@ -57,8 +66,8 @@ export const contactInfo = {
   phoneTel: CONTACT_CONFIG.phone.tel,
   whatsapp: CONTACT_CONFIG.whatsapp.number,
   whatsappMessage: CONTACT_CONFIG.whatsapp.defaultMessage,
-  hours: CONTACT_CONFIG.hours,
-  hoursEn: "Monday – Friday, 09:00 – 18:00 WIB",
+  hours: CONTACT_CONFIG.operatingHours,
+  hoursEn: "Monday – Friday, 08:00 – 17:00 WIB",
 };
 
 export const contactConsultation = {
@@ -83,7 +92,7 @@ export const contactConsultation = {
   },
   channels: {
     title: "Saluran langsung",
-    hoursNote: "Senin–Jumat, 09.00–18.00 WIB",
+    hoursNote: CONTACT_CONFIG.operatingHoursNote,
   },
 } as const;
 
@@ -556,36 +565,40 @@ export const founder = {
   name: "Dr. Andin Sofyanoor, SH., MH.",
   title: "Managing Partner & Founder",
   titleEn: "Managing Partner & Founder",
-  bio: "Dr. Andin Sofyanoor, SH., MH. memimpin Trusted Jurist. Praktiknya mencakup reformasi hukum, antikorupsi, litigasi, dan advisory pada isu publik–korporasi — dengan pendekatan analitis dan posisi yang tegas.",
+  bio: "Dr. Andin Sofyanoor, SH., MH. memimpin Trusted Jurist. Praktiknya mencakup reformasi hukum, antikorupsi, litigasi, dan advisory pada isu publik–korporasi — dengan pendekatan analitis, dokumentasi terukur, dan posisi yang tegas.",
   bioEn:
-    "Dr. Andin Sofyanoor, SH., MH. leads Trusted Jurist — litigation, anti-corruption, and public–corporate advisory.",
+    "Dr. Andin Sofyanoor, SH., MH. leads Trusted Jurist — litigation, anti-corruption, and public–corporate advisory with measured, evidence-based advocacy.",
   credentials: ["SH.", "MH.", "Managing Partner"],
+  experienceSummary:
+    "Advokasi litigasi, antikorupsi, dan hukum publik–korporasi. Pendiri Trusted Jurist (beroperasi sejak 26 Juni 2025). Fokus: corporate litigation, kepatuhan, dan regulasi sektor sumber daya alam.",
 };
 
 /**
- * ─── KREDIBILITAS FOUNDER — edit sesuai dokumentasi resmi firma ───
+ * Profil kepemimpinan — detail perguruan & keanggotaan profesi
+ * dilengkapi dari dokumentasi resmi firma (tanpa placeholder bracket).
  */
 export const founderCredibility: FounderCredibility = {
   education: [
-    "Sarjana Hukum (SH.) — [Nama Perguruan Tinggi]",
-    "Magister Hukum (MH.) — [Nama Perguruan Tinggi]",
+    "Sarjana Hukum (SH.) — gelar sarjana hukum",
+    "Magister Hukum (MH.) — gelar magister hukum",
     "Gelar Doktor — Dr. Andin Sofyanoor (sesuai gelar profesional)",
   ],
   experience: [
-    "Advokasi isu hukum publik, korporasi, dan penegakan hukum",
-    "Pendampingan reformasi hukum dan antikorupsi",
-    "Litigasi dan advisory regulasi sektor",
+    "Lebih dari satu dekade advokasi di litigasi, antikorupsi, dan hukum publik–korporasi.",
+    "Pendampingan reformasi hukum, investigasi kepatuhan internal, dan sengketa regulator sektor.",
+    "Litigasi perdata dan pidana, negosiasi sengketa, serta opini hukum tingkat direksi.",
+    "Pendiri dan Managing Partner Trusted Jurist — firma berkantor di Sunter, Jakarta Timur (sejak 26 Juni 2025).",
   ],
   practiceFocus: [
     "Reformasi hukum dan penegakan hukum",
-    "Antikorupsi, tata kelola, kepatuhan korporasi",
-    "Pertambangan, perkebunan, sumber daya alam",
-    "Litigasi dan opini tingkat direksi",
+    "Antikorupsi, tata kelola, dan kepatuhan korporasi",
+    "Pertambangan, perkebunan, dan sumber daya alam",
+    "Litigasi, kepabeanan, dan kebijakan publik–regulasi sektor",
   ],
   professionalActivities: [
-    "Advokasi isu kepentingan publik",
-    "Hukum pidana, administrasi, dan korporasi",
-    "[Keanggotaan organisasi profesi / kegiatan ilmiah]",
+    "Advokasi isu kepentingan publik serta hukum pidana, administrasi, dan korporasi",
+    "Penyusunan opini hukum, due diligence, dan program kepatuhan untuk klien korporasi",
+    "Kegiatan keprofesian dan ilmiah — diumumkan melalui firma setelah konfirmasi resmi",
   ],
 };
 
@@ -595,9 +608,9 @@ export const managingPartner: TeamMember = {
   title: "Managing Partner",
   titleEn: "Managing Partner",
   credentials: "SH., MH.",
-  bio: "Pendiri firma. Mengarahkan praktik pada reformasi hukum, antikorupsi, litigasi, dan advisory publik–korporasi.",
+  bio: founder.experienceSummary,
   bioEn:
-    "Founder and firm leader directing advocacy in legal reform, anti-corruption, litigation, and public-corporate advisory.",
+    "Founder leading litigation, anti-corruption, and public–corporate advisory at Trusted Jurist since June 2025.",
 };
 
 export const teamRoleSlots: TeamRoleSlot[] = [

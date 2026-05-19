@@ -20,6 +20,7 @@ export const CTA_LABELS = {
 
 export const FOOTER_LEGAL = {
   disclaimer:
-    "Materi di situs ini bersifat informasi umum, bukan nasihat hukum atau hubungan advokat–klien. Untuk pendampingan resmi, hubungi firma secara langsung.",
+    "Konten website ini disediakan untuk informasi umum saja dan tidak merupakan nasihat hukum. Trusted Jurist tidak memiliki hubungan advokat–klien dengan pengunjung sampai perjanjian tertulis ditandatangani. Untuk masalah hukum spesifik Anda, konsultasikan dengan pengacara profesional kami.",
+  copyright: "Hak cipta dilindungi undang-undang.",
   hoursNote: "Jam operasional indikatif. Konfirmasi janji temu melalui kontak resmi.",
 } as const;

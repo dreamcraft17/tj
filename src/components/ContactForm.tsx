@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { formSubjects, contactConsultation } from "@/lib/data";
+import { executeRecaptcha, isRecaptchaEnabled } from "@/lib/recaptcha-client";
 import { Button } from "@/components/ui/Button";
 import { type as t } from "@/lib/typography";
 import { cn } from "@/lib/utils";
@@ -14,14 +16,62 @@ type ContactFormProps = {
 
 export function ContactForm({ variant = "default" }: ContactFormProps) {
   const [state, setState] = useState<FormState>("idle");
+  const [error, setError] = useState<string | null>(null);
   const isConsultation = variant === "consultation";
   const copy = contactConsultation.form;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setError(null);
     setState("submitting");
-    await new Promise((resolve) => setTimeout(resolve, 1400));
-    setState("success");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      phone: String(formData.get("phone") ?? "").trim(),
+      subject: String(formData.get("subject") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+    };
+
+    let token: string | undefined;
+    if (isRecaptchaEnabled()) {
+      const recaptchaToken = await executeRecaptcha("contact_submit");
+      if (!recaptchaToken) {
+        setError("Verifikasi keamanan gagal. Muat ulang halaman dan coba lagi.");
+        setState("idle");
+        return;
+      }
+      token = recaptchaToken;
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, token }),
+      });
+
+      const data = (await response.json()) as {
+        error?: string;
+        success?: boolean;
+      };
+
+      if (!response.ok) {
+        setError(data.error ?? "Gagal mengirim form. Coba lagi.");
+        setState("idle");
+        return;
+      }
+
+      setState("success");
+      form.reset();
+    } catch (err) {
+      console.error("Form error:", err);
+      setError("Kesalahan jaringan. Periksa koneksi dan coba lagi.");
+      setState("idle");
+    }
   }
 
   if (state === "success") {
@@ -32,7 +82,10 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           <p className={cn(t.body, "mt-4 text-muted")}>{copy.successMessage}</p>
           <button
             type="button"
-            onClick={() => setState("idle")}
+            onClick={() => {
+              setState("idle");
+              setError(null);
+            }}
             className={cn(
               t.label,
               "mt-8 text-navy underline decoration-navy/20 underline-offset-4 transition-colors hover:text-gold hover:decoration-gold/50",
@@ -52,12 +105,17 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
         <h3 className="font-serif text-xl font-semibold text-navy">
           {copy.successTitle}
         </h3>
-        <p className="mt-2 max-w-sm text-sm text-muted">{copy.successMessage}</p>
+        <p className={cn(t.bodySm, "mt-2 max-w-sm text-muted")}>
+          {copy.successMessage}
+        </p>
         <Button
           type="button"
           variant="secondary"
           className="mt-6"
-          onClick={() => setState("idle")}
+          onClick={() => {
+            setState("idle");
+            setError(null);
+          }}
         >
           Kirim permintaan lain
         </Button>
@@ -232,6 +290,23 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
       {isConsultation && (
         <p className={cn(t.caption, "text-muted/80")}>{copy.note}</p>
       )}
+
+      {error && (
+        <p className="text-sm text-red-700" role="alert">
+          {error}
+        </p>
+      )}
+
+      <p className={cn(t.caption, "text-muted/70")}>
+        Dengan mengirim formulir ini, Anda menyetujui{" "}
+        <Link
+          href="/privacy"
+          className="text-navy underline decoration-navy/20 underline-offset-2 hover:text-gold"
+        >
+          Kebijakan Privasi
+        </Link>
+        .
+      </p>
 
       <div className={isConsultation ? "pt-2" : undefined}>
         <Button

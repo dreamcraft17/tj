@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { createMetadata } from "@/lib/seo";
 import { SITE_CONFIG } from "@/lib/constants";
 import { CONTACT_CONFIG } from "@/lib/data";
+import { RecaptchaScript } from "@/components/RecaptchaScript";
 import "@/styles/globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -74,6 +75,7 @@ export default function RootLayout({
         </main>
 
         <Footer />
+        <RecaptchaScript />
       </body>
     </html>
   );
