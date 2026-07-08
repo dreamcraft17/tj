@@ -245,6 +245,7 @@ curl -X POST http://localhost:3000/api/contact \
 | [fitur.md](./fitur.md) | Katalog fitur |
 | [audit.md](./audit.md) | Audit teknis v2.0 |
 | [changelog.md](./changelog.md) | Riwayat versi |
+| [docs/FEATURES.md](./docs/FEATURES.md) | Fitur lengkap + tech stack |
 | [docs/PRD.md](./docs/PRD.md) | Panduan Product Requirements |
 | [docs/go-live-checklist.md](./docs/go-live-checklist.md) | Checklist deploy |
 | [AGENTS.md](./AGENTS.md) | Catatan untuk AI agent |

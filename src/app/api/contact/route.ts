@@ -3,6 +3,7 @@ import { checkRateLimit, getClientIp } from "@/lib/contact/rate-limit";
 import { verifyRecaptchaToken } from "@/lib/contact/recaptcha";
 import { sendContactEmails } from "@/lib/contact/send-contact-email";
 import { validateContactBody } from "@/lib/contact/validate";
+import { addLead } from "@/lib/careers/store";
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,12 +30,22 @@ export async function POST(req: NextRequest) {
 
     const sent = await sendContactEmails(validated.data);
     if (!sent.ok) {
-      return NextResponse.json({ error: sent.error }, { status: 503 });
+      return NextResponse.json({ success: false, error: sent.error }, { status: 503 });
     }
+
+    addLead({
+      name: validated.data.name,
+      email: validated.data.email,
+      phone: validated.data.phone,
+      subject: validated.data.subject,
+      message: validated.data.message,
+      formVariant: "consultation",
+      ipAddress: ip,
+    });
 
     return NextResponse.json({
       success: true,
-      message: "Permintaan berhasil dikirim.",
+      message: "Terima kasih! Kami akan menghubungi Anda dalam 24 jam.",
       ...(sent.dev ? { dev: true } : {}),
     });
   } catch (error) {

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { createMetadata } from "@/lib/seo";
@@ -7,20 +6,6 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { CONTACT_CONFIG } from "@/lib/data";
 import { RecaptchaScript } from "@/components/RecaptchaScript";
 import "@/styles/globals.css";
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
 
 export const metadata: Metadata = createMetadata({
   title: SITE_CONFIG.name,
@@ -51,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang="id">
       <body className="flex min-h-screen flex-col bg-cream text-foreground">
         <script
           type="application/ld+json"

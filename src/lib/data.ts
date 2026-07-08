@@ -24,6 +24,7 @@ export const navigation: NavItem[] = [
   { label: "Bidang Praktik", href: "/practice-areas", labelEn: "Practice Areas" },
   { label: "Tim", href: "/team", labelEn: "Team" },
   { label: "Wawasan", href: "/insights", labelEn: "Insights" },
+  { label: "Karier", href: "/careers", labelEn: "Careers" },
   { label: "Kontak", href: "/contact", labelEn: "Contact" },
 ];
 

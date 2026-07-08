@@ -117,3 +117,61 @@ export interface WhyTrustedJuristPillar {
   description: string;
   icon: string;
 }
+
+export type JobLevel = "Junior" | "Mid" | "Senior" | "Lead";
+export type JobStatus = "draft" | "published" | "closed";
+export type ApplicantStatus = "new" | "review" | "interview" | "offer" | "reject";
+export type LeadStatus = "new" | "viewed" | "contacted" | "archived";
+
+export interface CareerJob {
+  id: string;
+  title: string;
+  level: JobLevel;
+  department?: string;
+  location: string;
+  summary: string;
+  description: string;
+  responsibilities: string[];
+  requiredSkills: string[];
+  niceToHave?: string[];
+  compensation?: string;
+  benefits: string[];
+  deadline?: string;
+  status: JobStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ContactLeadRecord extends ContactFormData {
+  id: string;
+  status: LeadStatus;
+  formVariant: string;
+  ipAddress: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+  auditTrail: Array<{ action: string; at: string; by: string }>;
+}
+
+export interface JobApplicantRecord {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  linkedin?: string;
+  jobPostingId: string;
+  positionTitle: string;
+  availability: "ASAP" | "2 weeks" | "1 month";
+  coverLetter?: string;
+  status: ApplicantStatus;
+  notes?: string;
+  cv: {
+    filename: string;
+    contentType: string;
+    size: number;
+    url: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  statusHistory: Array<{ status: ApplicantStatus; at: string; by: string; notes?: string }>;
+}

@@ -48,6 +48,7 @@ Dev tanpa env: form sukses, email di-log, reCAPTCHA dilewati.
 - [README.md](./README.md)
 - [fitur.md](./fitur.md)
 - [audit.md](./audit.md)
+- [docs/FEATURES.md](./docs/FEATURES.md)
 - [docs/PRD.md](./docs/PRD.md)
 - [docs/go-live-checklist.md](./docs/go-live-checklist.md)
 - [current-implementation.md](./current-implementation.md)

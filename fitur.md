@@ -1,5 +1,7 @@
 # Fitur — Trusted Jurist Website
 
+> **Update:** katalog lengkap + tech stack terbaru ada di **[docs/FEATURES.md](./docs/FEATURES.md)**. File ini tetap sebagai ringkasan cepat.
+
 Daftar fitur yang **sudah diimplementasi** pada website Trusted Jurist Law Firm (v0.2.0).
 
 ---

@@ -7,7 +7,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { navigation, contactInfo } from "@/lib/data";
 import { CTA_LABELS } from "@/lib/constants";
-import { cnInteractive } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 
@@ -73,10 +72,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
