@@ -1,24 +1,26 @@
 # Audit — Trusted Jurist Website
 
-Dokumen ini merangkum penilaian teknis, konten, dan kesiapan go-live proyek **Trusted Jurist Law Firm** per **19 Mei 2026**.
+Penilaian teknis, konten, dan kesiapan go-live proyek **Trusted Jurist Law Firm**.
 
-Skala prioritas: **P0** (bloker go-live) · **P1** (penting, segera setelah launch) · **P2** (peningkatan) · **P3** (nice-to-have)
+**Terakhir diperbarui:** 19 Mei 2026 · **Versi audit:** 2.0 · **Versi aplikasi:** 0.2.0
+
+Skala prioritas: **P0** (bloker go-live) · **P1** (penting pasca-launch) · **P2** (peningkatan) · **P3** (nice-to-have)
 
 ---
 
 ## Ringkasan Eksekutif
 
-| Area | Status | Catatan singkat |
-|------|--------|-----------------|
-| Arsitektur & codebase | ✅ Baik | Data-driven, komponen modular, TypeScript strict |
-| UI/UX & brand | ✅ Baik | Editorial premium, design tokens konsisten |
-| SEO dasar | ⚠️ Cukup | Metadata lengkap; belum ada OG image & sitemap |
-| Aksesibilitas | ✅ Baik | Semantic HTML, skip link, focus states |
-| Performa | ✅ Baik | App Router, font optimization, animasi viewport-aware |
-| Keamanan & privasi | ⚠️ Cukup | Tanpa backend; form simulasi; perlu kebijakan privasi |
-| Kesiapan konten | ⚠️ Belum | Placeholder kontak, pendidikan founder, peta |
+| Area | Status | Catatan |
+|------|--------|---------|
+| Arsitektur & codebase | Baik | Modular, TypeScript, `lib/contact/` terpisah |
+| UI/UX & brand | Baik | Editorial premium, design tokens konsisten |
+| SEO | Baik | Sitemap, robots, OG image, metadata lengkap |
+| Aksesibilitas | Baik | Landmarks, form labels, reduced motion global |
+| Performa | Baik | SSG + client minimal; belum diukur di production |
+| Keamanan & privasi | Cukup | Backend form + privacy page; perlu env production |
+| Kesiapan konten | Perlu konfirmasi | Nomor kontak REVIEW; universitas founder |
 
-**Rekomendasi:** Website siap untuk **staging / preview internal**. Go-live publik membutuhkan penyelesaian item **P0** di bawah.
+**Rekomendasi:** Siap **staging** setelah env production diisi. Go-live publik setelah konfirmasi nomor kontak resmi dan review legal disclaimer.
 
 ---
 
@@ -26,175 +28,159 @@ Skala prioritas: **P0** (bloker go-live) · **P1** (penting, segera setelah laun
 
 ### Kekuatan
 
-- **Next.js App Router** dengan pemisahan jelas: `app/` (routes), `components/` (UI), `lib/` (data & helpers).
-- Konten terpusat di `src/lib/data.ts` dan konfigurasi situs di `src/lib/constants.ts` — mudah di-maintain tanpa menyentuh layout.
-- **TypeScript** dengan tipe eksplisit di `src/types/index.ts` (`PracticeArea`, `InsightArticle`, dll.).
-- Sistem tipografi (`lib/typography.ts` + `styles/typography.css`) dan utilitas `cn()` konsisten.
-- Komponen homepage modular di `components/home/` — setiap chapter dapat diubah independen.
-- Preset animasi terpusat (`lib/motion.ts`) — menghindari duplikasi Framer Motion.
+- Next.js App Router — 7 halaman statis + 1 API route
+- Konten di `src/lib/data.ts`, konfigurasi di `src/lib/constants.ts`
+- Modul `src/lib/contact/` — validate, sanitize, rate-limit, recaptcha, email
+- Komponen homepage modular (`components/home/`)
+- Build production sukses (TypeScript strict)
 
-### Temuan
+### Temuan terbuka
 
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| A1 | P2 | Tidak ada unit/integration test | Tambah smoke test route & snapshot kritis setelah stabil |
-| A2 | P2 | `contactInfo` deprecated masih dipakai di beberapa komponen | Migrasi penuh ke `CONTACT_CONFIG` |
-| A3 | P3 | Default asset Next.js (`public/next.svg`, dll.) masih ada | Hapus aset boilerplate sebelum production |
-| A4 | P3 | Tidak ada CI/CD terdokumentasi | Tambah workflow build + lint di pipeline deploy |
+| A1 | P2 | Tidak ada automated test | Smoke test API + halaman kritis |
+| A2 | P2 | `contactInfo` deprecated masih dipakai | Migrasi penuh ke `CONTACT_CONFIG` |
+| A3 | P3 | Aset boilerplate Next di `public/` | Hapus sebelum production |
+| A4 | P3 | Tidak ada CI/CD | Workflow `build` + `lint` di GitHub Actions |
 
 ---
 
 ## 2. SEO & Discoverability
 
-### Sudah ada
+### Sudah diimplementasi
 
-- Helper `createMetadata()` di `src/lib/seo.ts` dipakai di **semua halaman**.
-- Title pattern: homepage full name + tagline; halaman dalam format `Judul | Trusted Jurist`.
-- Canonical URL, `metadataBase`, Open Graph, Twitter card, `robots: index/follow`.
-- `alternates.languages` (`id`, `en` query) — siap ekspansi i18n.
-- JSON-LD `@type: LegalService` di root layout.
-- Keywords relevan (firma hukum Jakarta, antikorupsi, dll.).
+- [x] `createMetadata()` di semua halaman termasuk `/privacy`
+- [x] Open Graph + Twitter card + `openGraph.images`
+- [x] `app/sitemap.ts` → `/sitemap.xml`
+- [x] `app/robots.ts` → `/robots.txt` (disallow `/api/`)
+- [x] `app/opengraph-image.tsx` — OG 1200×630 dinamis
+- [x] JSON-LD `LegalService` di root layout
+- [x] Canonical URL per halaman
 
-### Temuan
+### Temuan terbuka
 
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| S1 | P1 | Tidak ada `og:image` / gambar sosial default | Tambah `openGraph.images` (1200×630) branded |
-| S2 | P1 | Tidak ada `sitemap.xml` / `robots.txt` | Generate via `app/sitemap.ts` & `app/robots.ts` |
-| S3 | P2 | `?lang=en` belum mengaktifkan konten Inggris | Implementasi i18n atau hapus alternate sampai siap |
-| S4 | P2 | Artikel wawasan punya `slug` tetapi **tanpa halaman detail** | Tambah `/insights/[slug]` saat konten siap dipublikasi |
-| S5 | P3 | Tidak ada analytics (Plausible, GA4, dll.) | Pasang setelah kebijakan privasi disetujui |
+| S1 | P2 | `?lang=en` belum aktif | i18n atau hapus alternate |
+| S2 | P2 | Tidak ada `/insights/[slug]` | Tambah saat artikel dipublikasi |
+| S3 | P3 | Belum ada analytics | Plausible/GA4 setelah privasi final |
 
 ---
 
-## 3. Aksesibilitas (A11y)
+## 3. Aksesibilitas
 
-### Sudah ada
+### Sudah diimplementasi
 
-- `lang="id"` pada `<html>`.
-- Skip link ke `#main-content`.
-- Landmark: `<header>`, `<main>`, `<footer>`.
-- Form: label terhubung (`htmlFor`), `aria-label` pada form, `role="status"` pada success state.
-- Link eksternal WhatsApp: `rel="noopener noreferrer"`.
-- Indikator required dengan `aria-hidden` pada asterisk.
-- Focus ring pada input (`focus:ring-gold`).
+- [x] `lang="id"`, skip link, landmarks
+- [x] Form: label, `aria-label`, `role="alert"` / `role="status"`
+- [x] Navbar mobile: `aria-expanded`, `aria-controls`, `role="dialog"`
+- [x] `prefers-reduced-motion` di `globals.css`
+- [x] Focus ring pada input
 
-### Temuan
+### Temuan terbuka
 
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| X1 | P2 | Navbar mobile: verifikasi `aria-expanded` / trap focus saat menu terbuka | Audit manual + axe DevTools |
-| X2 | P2 | Animasi Framer Motion tanpa `prefers-reduced-motion` global | Tambah hook/media query untuk menonaktifkan motion |
-| X3 | P3 | Kontras warna gold pada cream — uji WCAG AA | Validasi dengan contrast checker |
+| X1 | P2 | Focus trap menu mobile belum diaudit | Manual test + axe DevTools |
+| X2 | P3 | Kontras gold/cream | Uji WCAG AA |
 
 ---
 
 ## 4. Performa
 
-### Sudah ada
-
-- Font Google via `next/font` dengan `display: swap`.
-- Mayoritas halaman **Server Components**; client hanya di Navbar, ContactForm, animasi.
-- Animasi reveal dengan delay bertahap — tidak memblokir LCP utama.
-- Tailwind v4 dengan design tokens CSS — bundle styling efisien.
-
-### Temuan
-
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| P1 | P2 | Navbar client + scroll listener di setiap halaman | Acceptable; pertimbangkan `useSyncExternalStore` jika perf issue |
-| P2 | P3 | Tidak ada lazy load gambar (belum ada foto tim/hero image) | Saat menambah foto, gunakan `next/image` + priority hanya di hero |
-| P3 | P3 | Belum diukur Core Web Vitals di production | Jalankan Lighthouse setelah deploy staging |
+| P1 | P1 | Belum Lighthouse di staging production | Target: Perf ≥85, A11y ≥95, SEO ≥95 |
+| P2 | P3 | Belum ada foto tim/hero | `next/image` saat aset siap |
 
 ---
 
 ## 5. Keamanan & Privasi
 
-### Sudah ada
+### Sudah diimplementasi
 
-- Tidak ada secret di repo; tidak ada API key hardcoded.
-- Form **tidak mengirim data** ke server (simulasi 1,4 detik) — tidak ada risiko injection server-side saat ini.
-- Tidak ada user authentication / session.
+- [x] `POST /api/contact` — validasi input, escape HTML email
+- [x] Rate limit 5 request/menit/IP (in-memory)
+- [x] reCAPTCHA v3 (wajib production, opsional dev)
+- [x] Halaman `/privacy` + link di form & footer
+- [x] Tidak ada secret di repo; `.env*` di gitignore
 
-### Temuan
+### Temuan terbuka
 
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| K1 | P0 | Form kontak belum terhubung backend | Integrasi API route + email service (Resend, SendGrid) atau form SaaS |
-| K2 | P0 | Tidak ada halaman **Kebijakan Privasi** / consent | Wajib untuk form yang mengumpulkan data pribadi |
-| K3 | P1 | Tidak ada rate limiting / CAPTCHA pada form | Tambah saat backend aktif |
-| K4 | P1 | WhatsApp & email placeholder di `CONTACT_CONFIG` | Ganti dengan kontak resmi sebelum go-live |
-| K5 | P2 | `dangerouslySetInnerHTML` untuk JSON-LD | Aman karena data statis; jangan masukkan input user ke sini |
+| K1 | P0 | Env production belum diisi | `RESEND_*`, reCAPTCHA di Vercel/hosting |
+| K2 | P1 | Rate limit in-memory | Upstash Redis jika multi-instance |
+| K3 | P1 | Nomor kontak placeholder | Update `CONTACT_CONFIG` |
+| K4 | P2 | Verifikasi domain Resend + SPF/DKIM | MXToolbox sebelum go-live |
 
 ---
 
-## 6. Konten & Kepatuhan Profesi Hukum
+## 6. Konten & Kepatuhan Hukum
 
 ### Kekuatan
 
-- Tidak ada testimonial, penghargaan, atau case history palsu.
-- Halaman Wawasan secara eksplisit menyatakan status **draf editorial** / **belum dipublikasi**.
-- Footer disclaimer hukum (`FOOTER_LEGAL.disclaimer`) — materi bukan nasihat hukum.
-- Founder credibility memakai placeholder perguruan — transparan bahwa perlu dilengkapi.
+- Tidak ada testimonial atau case history palsu
+- Wawasan berlabel draf / coming soon
+- Disclaimer footer diperbarui (bukan nasihat hukum, hubungan advokat–klien)
+- Placeholder perguruan founder dihapus (hindari data palsu)
 
-### Temuan
+### Temuan terbuka
 
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| C1 | P0 | Email, telepon, WhatsApp masih placeholder | Update `CONTACT_CONFIG` |
-| C2 | P0 | Pendidikan founder: `[Nama Perguruan Tinggi]` | Lengkapi dari dokumentasi resmi |
-| C3 | P1 | Peta kantor belum diintegrasikan | Embed Google Maps atau static map image |
-| C4 | P1 | Slot tim (Partner, Associate) tanpa nama individu | Isi saat roster resmi tersedia |
-| C5 | P2 | Keanggotaan organisasi profesi masih placeholder | Lengkapi atau hapus baris placeholder |
+| C1 | P0 | Telepon & WhatsApp `XXXX` | Konfirmasi admin firma |
+| C2 | P1 | Nama universitas founder belum diisi | Dokumen resmi firma |
+| C3 | P1 | Peta kantor belum ada | Google Maps embed |
+| C4 | P2 | Slot tim tanpa nama individu | Umumkan saat roster siap |
 
 ---
 
 ## 7. UX & Fungsionalitas
 
-### Sudah ada
+### Sudah diimplementasi
 
-- Navigasi 6 halaman + CTA konsultasi.
-- Navbar adaptif: transparan di hero homepage, solid setelah scroll.
-- Menu mobile dengan animasi AnimatePresence.
-- Transisi halaman (`PageTransition` via `template.tsx`).
-- Dua varian form: default & consultation (halaman kontak).
-- Deep link bidang praktik: `/practice-areas#<id>`.
-- Footer dengan tautan praktik ringkas & kanal kontak.
+- [x] 7 halaman + 404 kustom
+- [x] Form backend dengan error handling
+- [x] Navbar scroll-aware + menu mobile
+- [x] Deep link praktik `#id`
+- [x] Footer + tautan privasi
 
-### Temuan
+### Temuan terbuka
 
 | ID | Prioritas | Temuan | Rekomendasi |
 |----|-----------|--------|-------------|
-| U1 | P1 | Insight card tidak dapat diklik (tidak ada detail page) | Sesuai desain saat ini; aktifkan saat artikel live |
-| U2 | P2 | Tidak ada halaman 404 kustom | Tambah `app/not-found.tsx` branded |
-| U3 | P2 | Loading state global minimal (`loading.tsx`) | Perkaya skeleton jika UX diperlukan |
-| U4 | P3 | Bahasa Inggris belum di-switch | Roadmap i18n |
+| U1 | P2 | Artikel tidak dapat diklik | `/insights/[slug]` saat live |
+| U2 | P3 | i18n belum aktif | Roadmap |
 
 ---
 
 ## 8. Checklist Go-Live
 
-### P0 — Wajib sebelum publik
+### P0 — Wajib
 
-- [ ] Update `CONTACT_CONFIG` (email, telepon, WhatsApp, alamat final)
-- [ ] Lengkapi data founder & hapus placeholder perguruan
-- [ ] Hubungkan form kontak ke backend / layanan email
-- [ ] Tambah halaman Kebijakan Privasi (+ link di footer)
+- [x] Backend form (`/api/contact` + Resend)
+- [x] Halaman Kebijakan Privasi
+- [x] OG image, sitemap, robots, favicon
+- [ ] Isi env production (Resend, reCAPTCHA)
+- [ ] Update `CONTACT_CONFIG` — telepon & WhatsApp resmi
+- [ ] Review disclaimer dengan tim legal
 
 ### P1 — Segera setelah launch
 
-- [ ] OG image & favicon branded
-- [ ] `sitemap.xml` + `robots.txt`
-- [ ] Integrasi peta kantor
-- [ ] Audit a11y mobile menu + reduced motion
 - [ ] Deploy staging + Lighthouse audit
+- [ ] Uji email (Gmail, Outlook, Apple Mail)
+- [ ] Verifikasi SPF/DKIM/DMARC domain email
+- [ ] Integrasi peta kantor
+- [ ] Lengkapi data universitas founder
 
 ### P2 — Backlog
 
-- [ ] Halaman detail wawasan `/insights/[slug]`
+- [ ] `/insights/[slug]`
 - [ ] i18n bahasa Inggris
-- [ ] Halaman 404 kustom
-- [ ] Analytics & monitoring
+- [ ] Analytics
+- [ ] CI/CD + automated tests
+- [ ] Rate limit Redis (multi-region)
 
 ---
 
@@ -202,4 +188,5 @@ Skala prioritas: **P0** (bloker go-live) · **P1** (penting, segera setelah laun
 
 | Tanggal | Versi | Catatan |
 |---------|-------|---------|
-| 2026-05-19 | 1.0 | Audit awal — baseline proyek `tj` |
+| 2026-05-19 | 1.0 | Baseline v0.1.0 |
+| 2026-05-19 | 2.0 | Pasca v0.2.0 — backend, SEO assets, privacy |

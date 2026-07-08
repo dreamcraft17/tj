@@ -1,6 +1,10 @@
-# Trusted Jurist Law Firm  Company Profile Website
+# Trusted Jurist Law Firm — Company Profile Website
 
-Website company profile profesional untuk **Trusted Jurist Law Firm** (Jakarta Timur). Dibangun sebagai aplikasi web modern siap produksi: arsitektur terstruktur, UI editorial premium, performa optimal, SEO lengkap, dan codebase yang mudah dirawat.
+Website company profile profesional untuk **Trusted Jurist Law Firm** (Jakarta Timur). Dibangun sebagai aplikasi web modern siap produksi: arsitektur terstruktur, UI editorial premium, backend form, SEO lengkap, dan codebase yang mudah dirawat.
+
+**Versi saat ini:** `0.2.0` (go-live readiness) · **Domain:** [trustedjurist.co.id](https://trustedjurist.co.id)
+
+---
 
 ## Tech Stack
 
@@ -10,110 +14,144 @@ Website company profile profesional untuk **Trusted Jurist Law Firm** (Jakarta T
 | Bahasa | **TypeScript** (strict) |
 | Styling | **Tailwind CSS** v4 |
 | Animasi | **Framer Motion** |
+| Email | **Resend** (`/api/contact`) |
+| Keamanan form | **reCAPTCHA v3** + rate limiting |
 | Ikon | **Lucide React** |
 | Utilitas | **clsx** + **tailwind-merge** |
 | Tipografi | **Cormorant Garamond** + **Manrope** (`next/font`) |
+
+---
+
+## Halaman & Route
+
+| Route | Tipe | Deskripsi |
+|-------|------|-----------|
+| `/` | Static | Homepage — 8 section editorial |
+| `/about` | Static | Profil firma, nilai, komitmen |
+| `/practice-areas` | Static | 8 bidang praktik + anchor `#id` |
+| `/team` | Static | Managing Partner & struktur tim |
+| `/insights` | Static | Daftar wawasan (draf / coming soon) |
+| `/contact` | Static | Form konsultasi + kanal kontak |
+| `/privacy` | Static | Kebijakan privasi |
+| `/api/contact` | Dynamic | POST — kirim email via Resend |
+| `/sitemap.xml` | Generated | Sitemap SEO |
+| `/robots.txt` | Generated | Robots + referensi sitemap |
+| `/opengraph-image` | Generated | OG image 1200×630 |
+| `/icon` | Generated | Favicon 32×32 |
+
+---
 
 ## Struktur Proyek
 
 ```
 src/
-  app/                    # Routes, layout, metadata per halaman
+  app/
+    api/contact/          # Backend form
+    privacy/              # Kebijakan privasi
+    sitemap.ts            # Sitemap
+    robots.ts             # Robots
+    opengraph-image.tsx   # OG image
+    icon.tsx              # Favicon
+    not-found.tsx         # 404
   components/
-    home/                 # Section homepage (editorial chapters)
+    home/                 # Section homepage
     layout/               # Navbar, Footer
-    editorial/            # Blok konten editorial
-    motion/               # Wrapper animasi (stagger, reveal)
-    ui/                   # Primitives (Button, Container, IconMap)
+    ContactForm.tsx
+    RecaptchaScript.tsx
   lib/
-    data.ts               # Konten situs & CONTACT_CONFIG
-    constants.ts          # SITE_CONFIG, CTA, footer legal
-    seo.ts                # Metadata & Open Graph helpers
-    motion.ts             # Preset animasi Framer Motion
-    typography.ts         # Utility tipografi
-    utils.ts              # cn() dan helpers
-  styles/                 # globals.css, typography.css, design tokens
-  types/                  # TypeScript interfaces
-public/                   # Aset statis
+    contact/              # validate, rate-limit, recaptcha, email
+    data.ts               # Konten & CONTACT_CONFIG
+    constants.ts          # SITE_CONFIG, FOOTER_LEGAL
+    seo.ts                # Metadata helpers
+  styles/
+  types/
+.env.example              # Template environment variables
+docs/
+  go-live-checklist.md    # Checklist deploy & konfirmasi admin
 ```
 
-## Halaman
-
-| Route | Deskripsi |
-|-------|-----------|
-| `/` | Homepage  hero editorial, trust colophon, kredibilitas, tentang, indeks praktik, founder, standar, wawasan, penutup |
-| `/about` | Profil firma, visi, misi, nilai inti, pendekatan kerja |
-| `/practice-areas` | 8 bidang praktik hukum |
-| `/team` | Managing Partner & slot struktur tim |
-| `/insights` | Artikel editorial |
-| `/contact` | Form kontak, WhatsApp, info kantor |
-| `/privacy` | Kebijakan privasi |
+---
 
 ## Setup
 
 ```bash
-# Masuk ke direktori proyek
 cd tj
-
-# Install dependencies
 npm install
-
-# Development server
+cp .env.example .env.local   # isi sebelum production
 npm run dev
 ```
 
 Buka [http://localhost:3000](http://localhost:3000).
+
+### Environment variables
+
+| Variable | Wajib (prod) | Keterangan |
+|----------|--------------|------------|
+| `RESEND_API_KEY` | Ya | API key dari [resend.com](https://resend.com) |
+| `RESEND_FROM_EMAIL` | Ya | Pengirim terverifikasi, mis. `Trusted Jurist <noreply@trustedjurist.co.id>` |
+| `ADMIN_EMAIL` | Ya | Inbox notifikasi lead |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Ya | reCAPTCHA v3 site key |
+| `RECAPTCHA_SECRET_KEY` | Ya | reCAPTCHA secret |
+
+Tanpa env di **development**: form tetap sukses (email di-log ke console, reCAPTCHA dilewati).
+
+---
 
 ## Scripts
 
 ```bash
 npm run dev      # Development server
 npm run build    # Production build
-npm run start    # Jalankan production server
+npm run start    # Production server
 npm run lint     # ESLint
 ```
 
-## Environment (production)
-
-```bash
-cp .env.example .env.local
-```
-
-Isi `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `ADMIN_EMAIL`, dan kunci reCAPTCHA sebelum deploy production.
+---
 
 ## Konfigurasi Konten
 
-Sebelum go-live, perbarui data firma di:
+| File | Isi |
+|------|-----|
+| `src/lib/constants.ts` | Nama situs, URL, tagline, `FOOTER_LEGAL` |
+| `src/lib/data.ts` | `CONTACT_CONFIG`, navigasi, praktik, tim, wawasan |
 
-- `src/lib/constants.ts`  nama situs, URL, tagline, lokasi
-- `src/lib/data.ts`  `CONTACT_CONFIG` (alamat, email, telepon, WhatsApp, jam operasional)
+**Sebelum go-live:** ganti nilai `REVIEW` / `XXXX` di `CONTACT_CONFIG` (telepon, WhatsApp, nomor ruko).
 
-Konten editorial (bidang praktik, tim, artikel, nilai) juga terpusat di `src/lib/data.ts`.
+---
 
 ## Engineering Highlights
 
-- **SEO**: metadata per halaman, Open Graph, canonical URLs, JSON-LD `LegalService`
-- **A11y**: semantic HTML, skip link, focus states, ARIA labels
-- **Performance**: `next/font`, animasi viewport-aware, client bundle minimal
-- **Architecture**: data-driven content, komponen homepage modular (`components/home/`)
-- **i18n-ready**: field `labelEn` / `titleEn` pada data untuk ekspansi bahasa Inggris
-- **Form**: backend Resend via `/api/contact`, reCAPTCHA v3, rate limiting
+- **SEO:** metadata per halaman, OG image, Twitter card, canonical, JSON-LD `LegalService`, sitemap, robots
+- **Form:** validasi server, Resend (user + admin), rate limit 5/menit/IP, reCAPTCHA v3
+- **Privasi:** halaman `/privacy`, consent link di form, disclaimer footer
+- **A11y:** semantic HTML, skip link, focus states, `prefers-reduced-motion`
+- **Performance:** Server Components, `next/font`, animasi viewport-aware
+- **Architecture:** data-driven content, modul `lib/contact/`
+
+---
 
 ## Dokumentasi
 
 | File | Isi |
 |------|-----|
-| [fitur.md](./fitur.md) | Daftar fitur per halaman & komponen |
-| [audit.md](./audit.md) | Audit teknis, SEO, a11y, dan checklist go-live |
-| [changelog.md](./changelog.md) | Riwayat perubahan versi |
-| [docs/phase-1-checklist.md](./docs/phase-1-checklist.md) | Checklist Phase 1 & konfirmasi admin |
+| [fitur.md](./fitur.md) | Daftar fitur lengkap |
+| [audit.md](./audit.md) | Audit teknis & checklist go-live |
+| [changelog.md](./changelog.md) | Riwayat versi |
+| [docs/PRD.md](./docs/PRD.md) | Panduan Product Requirements (PRD) |
+| [docs/go-live-checklist.md](./docs/go-live-checklist.md) | Checklist admin & deploy |
+| [current-implementation.md](./current-implementation.md) | Snapshot implementasi aktual |
+
+---
 
 ## Catatan Konten
 
 - Tidak ada testimonial, penghargaan, atau riwayat kasus palsu
-- Telepon & WhatsApp di `CONTACT_CONFIG` bertanda REVIEW — ganti `XXXX` dengan nomor resmi firma
-- Peta lokasi: placeholder siap integrasi Google Maps / embed
+- Telepon & WhatsApp di `CONTACT_CONFIG` masih bertanda **REVIEW** — isi nomor resmi firma
+- Nama universitas founder sengaja tidak diisi — lengkapi dari dokumen resmi
+- Peta kantor: siap integrasi Google Maps pada fase berikutnya
+
+---
 
 ## Lisensi
 
-Proprietary  Trusted Jurist Law Firm.
+Proprietary — Trusted Jurist Law Firm.
