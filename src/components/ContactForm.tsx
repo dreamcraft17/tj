@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { formSubjects, contactConsultation } from "@/lib/data";
 import { executeRecaptcha, isRecaptchaEnabled } from "@/lib/recaptcha-client";
-import { Button } from "@/components/ui/Button";
+import { Alert, Button, Input, Select, Textarea } from "@/components/ui";
 import { type as t } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +19,10 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
   const [error, setError] = useState<string | null>(null);
   const isConsultation = variant === "consultation";
   const copy = contactConsultation.form;
+  const subjectOptions = formSubjects.map((subject) => ({
+    value: subject,
+    label: subject,
+  }));
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -75,43 +79,15 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
   }
 
   if (state === "success") {
-    if (isConsultation) {
-      return (
-        <div className="max-w-md" role="status">
-          <p className={cn(t.eyebrow, "text-gold")}>{copy.successTitle}</p>
-          <p className={cn(t.body, "mt-4 text-muted")}>{copy.successMessage}</p>
-          <button
-            type="button"
-            onClick={() => {
-              setState("idle");
-              setError(null);
-            }}
-            className={cn(
-              t.label,
-              "mt-8 text-navy underline decoration-navy/20 underline-offset-4 transition-colors hover:text-gold hover:decoration-gold/50",
-            )}
-          >
-            Kirim permintaan lain
-          </button>
-        </div>
-      );
-    }
-
     return (
-      <div
-        className="flex flex-col items-center rounded-sm border border-gold/30 bg-gold/5 px-6 py-12 text-center"
-        role="status"
-      >
-        <h3 className="font-serif text-xl font-semibold text-navy">
-          {copy.successTitle}
-        </h3>
-        <p className={cn(t.bodySm, "mt-2 max-w-sm text-muted")}>
-          {copy.successMessage}
-        </p>
+      <div className="space-y-6" role="status">
+        <Alert
+          type="success"
+          message={`${copy.successTitle}. ${copy.successMessage}`}
+        />
         <Button
           type="button"
-          variant="secondary"
-          className="mt-6"
+          variant={isConsultation ? "ghost" : "secondary"}
           onClick={() => {
             setState("idle");
             setError(null);
@@ -123,11 +99,6 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
     );
   }
 
-  const inputStyles = isConsultation ? inputConsultation : inputDefault;
-  const labelClass = isConsultation
-    ? cn(t.caption, "text-muted")
-    : "mb-1.5 block text-sm font-medium text-navy";
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -138,224 +109,92 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
       }
     >
       <div className={isConsultation ? "space-y-5" : "grid gap-5 sm:grid-cols-2"}>
-        <FormField
+        <Input
+          id="name"
+          name="name"
           label="Nama lengkap"
-          htmlFor="name"
           required
-          labelClass={labelClass}
-          compact={isConsultation}
-        >
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            autoComplete="name"
-            disabled={state === "submitting"}
-            className={inputStyles}
-            placeholder="Nama lengkap"
-          />
-        </FormField>
-        <FormField
+          autoComplete="name"
+          disabled={state === "submitting"}
+          placeholder="Nama lengkap"
+        />
+        <Input
+          id="email"
+          name="email"
+          type="email"
           label="Email"
-          htmlFor="email"
           required
-          labelClass={labelClass}
-          compact={isConsultation}
-        >
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            disabled={state === "submitting"}
-            className={inputStyles}
-            placeholder="email@perusahaan.com"
-          />
-        </FormField>
+          autoComplete="email"
+          disabled={state === "submitting"}
+          placeholder="email@perusahaan.com"
+        />
       </div>
 
-      {!isConsultation ? (
-        <div className="grid gap-5 sm:grid-cols-2">
-          <FormField label="Telepon" htmlFor="phone" labelClass={labelClass}>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              disabled={state === "submitting"}
-              className={inputStyles}
-              placeholder="+62 ..."
-            />
-          </FormField>
-          <FormField
-            label="Subjek"
-            htmlFor="subject"
-            required
-            labelClass={labelClass}
-          >
-            <select
-              id="subject"
-              name="subject"
-              required
-              disabled={state === "submitting"}
-              className={cn(inputStyles, "cursor-pointer")}
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Pilih subjek
-              </option>
-              {formSubjects.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </FormField>
-        </div>
-      ) : (
-        <>
-          <FormField
-            label="Telepon"
-            htmlFor="phone"
-            labelClass={labelClass}
-            compact
-          >
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              disabled={state === "submitting"}
-              className={inputStyles}
-              placeholder="+62 … (opsional)"
-            />
-          </FormField>
-          <FormField
-            label="Bidang perkara"
-            htmlFor="subject"
-            required
-            labelClass={labelClass}
-            compact
-          >
-            <select
-              id="subject"
-              name="subject"
-              required
-              disabled={state === "submitting"}
-              className={cn(inputStyles, "cursor-pointer")}
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Pilih bidang
-              </option>
-              {formSubjects.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </FormField>
-        </>
-      )}
-
-      <FormField
-        label={isConsultation ? "Ringkasan" : "Pesan"}
-        htmlFor="message"
-        required
-        labelClass={labelClass}
-        compact={isConsultation}
-      >
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={isConsultation ? 4 : 5}
+      <div className={isConsultation ? "space-y-5" : "grid gap-5 sm:grid-cols-2"}>
+        <Input
+          id="phone"
+          name="phone"
+          type="tel"
+          label="Telepon"
+          autoComplete="tel"
           disabled={state === "submitting"}
-          className={cn(
-            inputStyles,
-            isConsultation
-              ? "min-h-[88px] resize-none"
-              : "min-h-[120px] resize-y",
-          )}
-          placeholder={
-            isConsultation
-              ? "Konteks singkat — tanpa detail yang tidak perlu"
-              : "Ringkasan mandat atau pertanyaan..."
-          }
+          placeholder={isConsultation ? "+62 … (opsional)" : "+62 ..."}
         />
-      </FormField>
+        <Select
+          id="subject"
+          name="subject"
+          label={isConsultation ? "Bidang perkara" : "Subjek"}
+          required
+          disabled={state === "submitting"}
+          defaultValue=""
+          placeholder={isConsultation ? "Pilih bidang" : "Pilih subjek"}
+          options={subjectOptions}
+        />
+      </div>
 
-      {isConsultation && (
-        <p className={cn(t.caption, "text-muted/80")}>{copy.note}</p>
-      )}
+      <Textarea
+        id="message"
+        name="message"
+        label={isConsultation ? "Ringkasan" : "Pesan"}
+        required
+        rows={isConsultation ? 4 : 5}
+        disabled={state === "submitting"}
+        placeholder={
+          isConsultation
+            ? "Konteks singkat — tanpa detail yang tidak perlu"
+            : "Ringkasan mandat atau pertanyaan..."
+        }
+        className={isConsultation ? "min-h-[88px] resize-none" : undefined}
+      />
 
-      {error && (
-        <p className="text-sm text-red-700" role="alert">
-          {error}
-        </p>
-      )}
+      {isConsultation ? (
+        <p className={cn(t.caption, "text-gray-text")}>{copy.note}</p>
+      ) : null}
 
-      <p className={cn(t.caption, "text-muted/70")}>
+      {error ? (
+        <Alert type="error" message={error} onClose={() => setError(null)} />
+      ) : null}
+
+      <p className={cn(t.caption, "text-gray-text")}>
         Dengan mengirim formulir ini, Anda menyetujui{" "}
         <Link
           href="/privacy"
-          className="text-navy underline decoration-navy/20 underline-offset-2 hover:text-gold"
+          className="text-navy-700 underline decoration-navy-700/20 underline-offset-2 hover:text-gold-500"
         >
           Kebijakan Privasi
         </Link>
         .
       </p>
 
-      <div className={isConsultation ? "pt-2" : undefined}>
-        <Button
-          type="submit"
-          variant={isConsultation ? "secondary" : "primary"}
-          size={isConsultation ? "sm" : "lg"}
-          className={isConsultation ? "" : "w-full sm:w-auto"}
-          isLoading={state === "submitting"}
-        >
-          {isConsultation ? copy.submitLabel : "Kirim pesan"}
-        </Button>
-      </div>
+      <Button
+        type="submit"
+        variant={isConsultation ? "secondary" : "primary"}
+        size={isConsultation ? "md" : "lg"}
+        className={isConsultation ? undefined : "w-full sm:w-auto"}
+        isLoading={state === "submitting"}
+      >
+        {isConsultation ? copy.submitLabel : "Kirim pesan"}
+      </Button>
     </form>
-  );
-}
-
-const inputDefault =
-  "w-full rounded-sm border border-border bg-cream px-4 py-2.5 text-sm text-navy placeholder:text-muted/60 transition-colors focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-60";
-
-const inputConsultation =
-  "w-full border-0 border-b border-navy/15 bg-transparent px-0 py-2 text-sm text-navy placeholder:text-muted/50 transition-colors focus:border-gold focus:outline-none disabled:opacity-50";
-
-function FormField({
-  label,
-  htmlFor,
-  required,
-  labelClass,
-  compact,
-  children,
-}: {
-  label: string;
-  htmlFor: string;
-  required?: boolean;
-  labelClass: string;
-  compact?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <label htmlFor={htmlFor} className={labelClass}>
-        {label}
-        {required && (
-          <span className="text-gold/80" aria-hidden>
-            {" "}
-            *
-          </span>
-        )}
-      </label>
-      <div className={compact ? "mt-2" : undefined}>{children}</div>
-    </div>
   );
 }

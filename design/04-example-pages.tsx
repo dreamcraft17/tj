@@ -12,7 +12,6 @@ import {
   PracticeAreaCard,
   TeamMemberCard,
   JobPostingCard,
-  Badge,
 } from './02-ui-components';
 import {
   Navbar,
@@ -32,7 +31,6 @@ import {
   CheckCircle,
   Users,
   Award,
-  Globe,
 } from 'lucide-react';
 
 // ============================================

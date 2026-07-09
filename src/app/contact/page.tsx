@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
+import { PageIntro } from "@/components/layout";
 import { Container } from "@/components/ui/Container";
 import {
   CONTACT_CONFIG,
@@ -25,15 +26,15 @@ export default function ContactPage() {
 
   return (
     <div className="tone-cream">
-      <header className="pt-32 pb-20 md:pt-40 md:pb-28">
-        <Container size="narrow">
-          <p className={cn(t.colophon, "text-muted")}>{copy.eyebrow}</p>
-          <h1 className={cn(t.h1, "mt-6 max-w-[16ch] text-navy")}>
-            {copy.title}
-          </h1>
-          <p className={cn(t.lead, "mt-8 max-w-xl text-muted")}>{copy.lead}</p>
-        </Container>
-      </header>
+      <PageIntro
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        description={copy.lead}
+        crumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Kontak" },
+        ]}
+      />
 
       <section
         className="section-pad-lg pb-0"

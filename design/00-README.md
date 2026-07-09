@@ -484,17 +484,20 @@ Use tools like:
 
 ## ✅ Implementation Checklist
 
-- [ ] Copy all files to project
-- [ ] Install dependencies
-- [ ] Update `layout.tsx` with font variables
-- [ ] Import `globals.css` in root layout
-- [ ] Copy `tailwind.config.js` to project root
-- [ ] Create first page using components
+- [x] Copy all files to project
+- [x] Install dependencies
+- [x] Update `layout.tsx` with font variables
+- [x] Import `globals.css` in root layout
+- [x] Copy `tailwind.config.js` to project root
+- [x] Create first page using components
+- [x] Wire homepage, about, team, practice, contact, careers
 - [ ] Test responsive at mobile/tablet/desktop
 - [ ] Run accessibility audit (WAVE/Axe)
 - [ ] Verify color contrast (4.5:1 minimum)
 - [ ] Test keyboard navigation
 - [ ] Deploy to staging
+
+Lihat status wiring: [IMPLEMENTATION.md](./IMPLEMENTATION.md)
 
 ---
 

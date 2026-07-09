@@ -8,19 +8,19 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   primary:
-    "bg-navy text-cream border border-navy hover:bg-navy-light",
+    "bg-navy-700 text-white border border-navy-700 hover:bg-navy-500 active:bg-navy-700",
   secondary:
-    "bg-transparent text-navy border border-navy/25 hover:border-navy",
-  gold: "bg-gold text-cream border border-gold hover:bg-gold-light",
-  ghost: "bg-transparent text-cream border border-cream/30 hover:border-cream/60",
+    "bg-transparent text-gold-500 border border-gold-500 hover:bg-gold-500 hover:text-white",
+  gold: "bg-gold-500 text-white border border-gold-500 hover:bg-gold-300",
+  ghost: "bg-transparent text-navy-700 border border-transparent hover:bg-gray-light",
   outlineLight:
     "bg-transparent text-cream border border-cream/35 hover:border-cream",
 } as const;
 
 const sizes = {
-  sm: "px-4 py-2",
-  md: "px-6 py-2.5",
-  lg: "px-7 py-3",
+  sm: "min-h-10 px-4 py-2",
+  md: "min-h-11 px-6 py-3",
+  lg: "min-h-12 px-7 py-3.5 text-sm",
 } as const;
 
 export type ButtonVariant = keyof typeof variants;
@@ -49,6 +49,7 @@ function buttonClasses(
     "inline-flex items-center justify-center gap-2",
     t.label,
     cnInteractive.button,
+    "rounded-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60",
     variants[variant],
     sizes[size],
     className,

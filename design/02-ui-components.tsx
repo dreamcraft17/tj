@@ -4,6 +4,7 @@
  * 
  * Components: Button, Input, Textarea, Select, Checkbox, Radio, Card, Alert, Badge
  */
+/* eslint-disable @next/next/no-img-element */
 
 import React, { forwardRef, InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import { ChevronDown, X } from 'lucide-react';

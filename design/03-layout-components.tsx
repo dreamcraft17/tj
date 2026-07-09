@@ -2,6 +2,7 @@
  * Trusted Jurist Layout Components
  * Navbar, Footer, Hero Section, Content Section, Container
  */
+/* eslint-disable @next/next/no-img-element */
 
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
@@ -239,7 +240,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 export interface ContentSectionProps {
   title?: string;
   subtitle?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   backgroundColor?: 'cream' | 'white';
   className?: string;
 }
@@ -300,8 +301,6 @@ export const TwoColumnSection: React.FC<TwoColumnSectionProps> = ({
   cta,
   backgroundColor = 'cream',
 }) => {
-  const bgColor = backgroundColor === 'cream' ? 'bg-cream-500' : 'bg-white';
-
   return (
     <ContentSection backgroundColor={backgroundColor}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">

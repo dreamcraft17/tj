@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
 import { AboutProfileEditorial } from "@/components/AboutProfileEditorial";
 import { ValueCard } from "@/components/ValueCard";
 import { TrustCommitments } from "@/components/TrustCommitments";
 import { CTASection } from "@/components/CTASection";
 import { SectionHeader } from "@/components/SectionHeader";
+import { PageIntro } from "@/components/layout";
 import { Container } from "@/components/ui/Container";
 import { coreValues } from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
@@ -19,12 +19,14 @@ export const metadata: Metadata = createMetadata({
 export default function AboutPage() {
   return (
     <>
-      <Hero
-        legalPrinciple="Profil firma"
-        headline="Tentang Trusted Jurist"
-        subheadline="Firma hukum di persimpangan hukum publik, korporasi, dan regulasi sektor — berkantor di Jakarta Timur."
-        colophon="Profil firma"
-        compact
+      <PageIntro
+        eyebrow="Profil firma"
+        title="Tentang Trusted Jurist"
+        description="Firma hukum di persimpangan hukum publik, korporasi, dan regulasi sektor — berkantor di Jakarta Timur."
+        crumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Tentang Kami" },
+        ]}
       />
 
       <AboutProfileEditorial />

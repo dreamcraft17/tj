@@ -57,6 +57,24 @@
 
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-manrope), Manrope, system-ui, sans-serif;
+
+  /* Design-system fixed scale aliases (from design/01-tailwind.config.js) */
+  --text-h1-md: 48px;
+  --text-h1-md--line-height: 1.2;
+  --text-h1-lg: 72px;
+  --text-h1-lg--line-height: 1.2;
+  --text-h2-md: 36px;
+  --text-h2-md--line-height: 1.3;
+  --text-h2-lg: 56px;
+  --text-h2-lg--line-height: 1.3;
+  --text-h3-md: 32px;
+  --text-h3-md--line-height: 1.3;
+  --text-h3-lg: 42px;
+  --text-h3-lg--line-height: 1.3;
+  --text-h4-md: 24px;
+  --text-h4-md--line-height: 1.4;
+  --text-h4-lg: 28px;
+  --text-h4-lg--line-height: 1.4;
 }
 
 @utility type-display {

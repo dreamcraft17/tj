@@ -10,31 +10,31 @@ module.exports = {
     extend: {
       // ===== COLORS =====
       colors: {
-        // Primary (Navy) - Trust, Authority, Professional
+        // Primary (Charcoal Mahogany) - Legal authority, formality, restraint
         navy: {
-          900: '#0d1117',
-          700: '#121c2b', // default
-          500: '#3d4a5c',
-          300: '#6b7a89',
+          900: '#17130f',
+          700: '#241b18', // default
+          500: '#4b3430',
+          300: '#8a7269',
         },
-        // Accent (Gold) - Premium, Sophistication, Luxury
+        // Accent (Brass) - Courtroom detail, prestige, emphasis
         gold: {
-          900: '#6b5a2d',
-          500: '#8a7340', // default
-          300: '#c9b896',
+          900: '#7a4e13',
+          500: '#a87925', // default
+          300: '#d0aa62',
         },
-        // Background (Cream) - Warm, Editorial, Readable
+        // Background (Parchment) - Formal, document-like, readable
         cream: {
-          100: '#faf9f7',
-          500: '#f7f4ef', // default
-          700: '#e8e4db',
+          100: '#fffaf1',
+          500: '#f8f3ea', // default
+          700: '#e9ddcb',
         },
         // Neutrals
         gray: {
-          light: '#f3f0eb',
-          border: '#d9d2c6',
-          text: '#5c6b7a',
-          dark: '#3d3d3d',
+          light: '#f1e8da',
+          border: '#d8c7ad',
+          text: '#75685e',
+          dark: '#3a302b',
         },
         // Semantic
         success: '#10b981',

@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
-import { SectionHeader } from "@/components/SectionHeader";
-import { TeamCard } from "@/components/TeamCard";
 import { TeamRoleSlot } from "@/components/TeamRoleSlot";
 import { FounderCredibility } from "@/components/FounderCredibility";
 import { CTASection } from "@/components/CTASection";
+import { PageIntro, GridSection } from "@/components/layout";
 import { Container } from "@/components/ui/Container";
+import { TeamMemberCard } from "@/components/ui/DesignCards";
 import { managingPartner, teamRoleSlots, founderCredibility } from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
 
@@ -19,46 +18,56 @@ export const metadata: Metadata = createMetadata({
 export default function TeamPage() {
   return (
     <>
-      <Hero
-        headline="Tim"
-        subheadline="Advokat dan profesional hukum — litigasi, antikorupsi, dan advisory publik–korporasi."
-        compact
+      <PageIntro
+        eyebrow="Kepemimpinan"
+        title="Tim Trusted Jurist"
+        description="Advokat dan profesional hukum — litigasi, antikorupsi, dan advisory publik–korporasi."
+        crumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Tim" },
+        ]}
       />
 
-      <section className="section-pad">
-        <Container size="narrow">
-          <SectionHeader
-            eyebrow="Kepemimpinan"
-            title="Managing Partner"
-            description="Pendiri firma. Mengarahkan praktik pada reformasi hukum, antikorupsi, dan litigasi."
+      <GridSection
+        title="Managing Partner"
+        subtitle="Pendiri firma. Mengarahkan praktik pada reformasi hukum, antikorupsi, dan litigasi."
+        columns={1}
+        backgroundColor="white"
+      >
+        <div className="mx-auto w-full max-w-md">
+          <TeamMemberCard
+            name={managingPartner.name}
+            title={managingPartner.title}
+            bio={managingPartner.bio}
           />
-          <div className="mx-auto max-w-2xl">
-            <TeamCard member={managingPartner} index={0} />
-          </div>
-        </Container>
-      </section>
+        </div>
+      </GridSection>
 
       <section className="tone-paper section-pad">
         <Container size="narrow">
-          <SectionHeader
-            eyebrow="Profil Kepemimpinan"
-            title="Profil kepemimpinan"
-            description="Disesuaikan dengan dokumentasi resmi firma sebelum publikasi."
-            align="center"
-          />
-          <FounderCredibility data={founderCredibility} />
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-gold-500">
+            Profil kepemimpinan
+          </p>
+          <h2 className="mt-4 text-center font-serif text-4xl font-semibold text-navy-700 md:text-5xl">
+            Kredibilitas founder
+          </h2>
+          <FounderCredibility data={founderCredibility} className="mt-12" />
         </Container>
       </section>
 
       <section className="py-20 md:py-28">
         <Container>
-          <SectionHeader
-            eyebrow="Pengembangan Organisasi"
-            title="Struktur Tim yang Sedang Disusun"
-            description="Trusted Jurist memperluas tim advokat secara bertahap. Posisi di bawah ini belum diisi dan akan diumumkan resmi — tanpa nama sementara."
-            align="center"
-          />
-          <div className="flow-editorial mt-4 md:grid md:grid-cols-3 md:gap-x-12">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-gold-500">
+            Pengembangan organisasi
+          </p>
+          <h2 className="mx-auto mt-4 max-w-3xl text-center font-serif text-4xl font-semibold text-navy-700 md:text-5xl">
+            Struktur tim yang sedang disusun
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-8 text-gray-text">
+            Trusted Jurist memperluas tim secara bertahap. Posisi di bawah belum
+            diisi dan akan diumumkan resmi — tanpa nama sementara.
+          </p>
+          <div className="mt-16 grid gap-8 md:grid-cols-3">
             {teamRoleSlots.map((slot, i) => (
               <TeamRoleSlot key={slot.id} slot={slot} index={i} />
             ))}
